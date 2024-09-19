@@ -3,7 +3,7 @@
       <h1>{{ product.nome }}</h1>
       <img :src="product.imageURL" alt="Imagem do produto" />
       <p>{{ product.descricao }}</p>
-      <p>Preço: R$ {{ product.preco }}</p>
+      <p>R$ {{ product.preco }}</p>
     </div>
     <div v-else>
       <p>Produto não encontrado.</p>
