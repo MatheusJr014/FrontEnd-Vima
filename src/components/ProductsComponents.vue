@@ -92,7 +92,7 @@ export default {
   methods: {
     async fetchProduct() {
       try {
-        const response = await axios.get('https://localhost:7077/produto/2'); // Atualize o ID do produto
+        const response = await axios.get('https://localhost:7077/produto/1');
         const productData = response.data;
         
         if (productData.imageURL) {

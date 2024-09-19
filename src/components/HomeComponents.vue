@@ -30,10 +30,10 @@ onMounted(() => {
     </div>
   </div>
 
-  <div class="divisor"></div>
+  <!-- <div class="divisor"></div> -->
 
   <div class="text-center">
-    <p class="sub-title" style="margin-bottom: 1vh;"><b>PRODUTOS EM DESTAQUE</b></p>
+    <p class="sub-title" style="margin-bottom: 1vh; margin-top: 8vh;"><b>PRODUTOS EM DESTAQUE</b></p>
   </div>
 
   <div class="container">
@@ -46,10 +46,15 @@ onMounted(() => {
           <div class="card-body">
             <span class="title">{{ product.nome }}</span>
             <span class="price"><b>R$ {{ product.preco }}</b></span>
-           
-            <router-link class="nav-link" aria-current="page" to="/product">
+
+            <!-- <router-link class="nav-link" aria-current="page" to="/product">
               <button class="custom-button mt-3">Ver Agora &#8594;</button>
+            </router-link> -->
+            <router-link :to="`/product/${product.id}`" class="nav-link" aria-current="page">
+             <button class="custom-button mt-3">Ver Agora &#8594;</button>
             </router-link>
+
+            
           </div>
         </div>
       </div>
@@ -58,7 +63,7 @@ onMounted(() => {
 </template>
 
 <style scoped>
-.card {
+/* .card {
   position: relative;
   width: 100%;
   height: 35.5em;
@@ -72,6 +77,22 @@ onMounted(() => {
   padding: 0.5em;
   padding-bottom: 3.4em;
   overflow: hidden;
+} */
+
+.card {
+  position: relative;
+  width: 18.875em;
+  height: 30.5em;
+  box-shadow: 0px 1px 13px rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: all 120ms;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  padding: 0.5em;
+  padding-bottom: 3.4em;
+  overflow: hidden; /* Garante que o conteúdo não ultrapasse os limites do card */
 }
 
 .custom-button {
@@ -97,7 +118,7 @@ onMounted(() => {
 
 .card:active .custom-button {
   background-color: #007b63;
-  transform: scale(0.98);
+  transform: scale(1.1);
 }
 
 .card .title {
@@ -120,7 +141,7 @@ onMounted(() => {
 }
 
 .image {
-  background: rgb(241, 241, 241);
+  background: rgb(255, 255, 255);
   width: 100%;
   height: 100%;
   display: flex;
@@ -140,7 +161,7 @@ onMounted(() => {
 }
 
 .container img {
-  height: 36vh;
+  height: 40vh;
 }
 
 .title-text {
@@ -152,10 +173,13 @@ onMounted(() => {
   margin-top: 3vh;
 }
 
-.divisor {
+/* .divisor {
   background-color: #212529;
   height: 5vh;
   margin-top: 6cap;
   margin-bottom: 5vh;
+} */
+.container-banner{
+  height: 100%;
 }
 </style>

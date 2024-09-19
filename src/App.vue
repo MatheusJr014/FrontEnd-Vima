@@ -43,7 +43,6 @@
       </div>
     </div>
   </nav>
-
   
   <div class="main">
     <router-view></router-view>
@@ -62,14 +61,7 @@ export default {
   };
 
 </script>
-
 <style>
-.footer {
-    background: #269abc;
-    text-align: center;
-    color: white; 
-}
-
 .logo {
   display: flex;
   align-items: center;
