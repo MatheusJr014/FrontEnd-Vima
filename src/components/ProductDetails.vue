@@ -22,7 +22,7 @@
             </div>
           </div>
         </div>
-        
+  
         <!-- Coluna das informações do produto -->
         <div class="col-md-7">
           <h1><strong>{{ product.nome }}</strong></h1>
@@ -59,7 +59,7 @@
         </div>
       </div>
     </div>
-    
+  
     <div v-else>
       <p>Produto não encontrado.</p>
     </div>
@@ -118,16 +118,34 @@
         }
       },
       addToCart() {
-        this.payCart();
-      },
-      payCart() {
-        CarrinhoDataService.create(this.userData)
+        if (this.selectedMaterial === '' || this.userData.quantidade <= 0) {
+          alert('Por favor, selecione um tamanho e uma quantidade válida.');
+          return;
+        }
+  
+        if (this.userData.quantidade > this.inventory) {
+          alert('Quantidade maior que o estoque disponível.');
+          return;
+        }
+  
+        // Enviando os dados completos ao carrinho
+        const cartData = {
+          productId: this.product.id,
+          nome: this.product.nome,
+          preco: this.product.preco,
+          quantidade: this.userData.quantidade,
+          tamanho: this.selectedMaterial,
+          imageURL: this.product.imageURL
+        };
+  
+        CarrinhoDataService.create(cartData)
           .then(response => {
             console.log(response.data);
-            this.submitted = true;
+            alert('Produto adicionado ao carrinho com sucesso!');
           })
           .catch(error => {
-            console.log(error);
+            console.error('Erro ao adicionar ao carrinho:', error);
+            alert('Ocorreu um erro ao adicionar o produto ao carrinho.');
           });
       },
       nextSlide() {
@@ -147,7 +165,6 @@
   </script>
   
   <style scoped>
-
   .product-img img {
     width: 100%;
     height: auto;
