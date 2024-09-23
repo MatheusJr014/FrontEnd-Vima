@@ -43,6 +43,7 @@
       </div>
     </div>
   </nav>
+  
   <div class="main">
     <router-view></router-view>
   </div>

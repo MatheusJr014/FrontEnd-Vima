@@ -1,276 +1,268 @@
 <template>
-  <div class="container container-fluid container-sm">
-    <div class="card border-card mb-3">
-      <h5 class="card-title">Carrinho de Compras</h5>
-      <div class="card-body text-dark">
-        <div class="card-body">
-          <div class="table-responsive-sm">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th class="colunas" scope="col">#</th>
-                  <th class="colunas" scope="col">Produto</th>
-                  <th class="colunas" scope="col">Preço</th>
-                  <th class="colunas" scope="col">Quantidade</th>
-                  <th class="colunas" scope="col">-</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="(produto, index) in produtos" :key="produto.id">
-                  <th scope="row">
-                    <center><img :src="produto.imagemURL" class="card-img-top" alt="..."></center>
-                  </th>
-                  <td><center>{{ produto.product }}</center></td>
-                  <td><center>{{ formatPrice(produto.preco) }}</center></td>
-                  <td>
-                    <div class="input-groupe">
-                      <div class="input-quant">
-                        <center>
-                          <button @click="aumentaQuantidade(produto.id)" class="btn" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-                            <i class="pi pi-arrow-up" style="font-size: 1.0rem"></i>
-                          </button>
-
-                          <input v-model="produto.quantidade" @input="atualizaQuantidade(produto)" class="text-input" style="width: 70px;" type="number" min="1">
-
-                          <button @click="diminuiQuantidade(produto.id)" class="btn " style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-                            <i class="pi pi-arrow-down" style="font-size: 1.0rem"></i>
-                          </button>
-                        </center>
+  <div class="product-container container-fluid" v-if="product">
+      <div class="row">
+          <!-- Coluna da imagem do produto -->
+          <div class="col-md-5">
+              <div class="product-img">
+                  <div class="carousel">
+                      <div class="carousel-inner">
+                          <div v-for="(image, index) in images" :key="index" :class="{ 'carousel-item': true, active: index === currentIndex }">
+                              <img :src="image.src" class="d-block w-100" :alt="'Slide ' + index">
+                          </div>
                       </div>
-                    </div>
-                  </td>
-                  <td>
-                    <center>
-                      <button @click="removerProduto(produto.id)" type="button" class="btn btn-danger"
-                        style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-                        <i class="pi pi-trash" style="font-size: 1.0rem"></i>
-                      </button>
-                    </center>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+                      <a class="carousel-control-prev" @click="prevSlide" role="button">
+                          <span class="carousel-control-prev-icon" aria-hidden="false"></span>
+                      </a>
+                      <a class="carousel-control-next" @click="nextSlide" role="button">
+                          <span class="carousel-control-next-icon" aria-hidden="false"></span>
+                      </a>
+                  </div>
+                  <div class="carousel-thumbnails">
+                      <img v-for="(image, index) in images" :key="index" :src="image.src" class="thumbnail" :class="{ active: index === currentIndex }" @click="changeSlide(index)">
+                  </div>
+              </div>
           </div>
-        </div>
+
+          <!-- Coluna das informações do produto -->
+          <div class="col-md-7">
+              <h1><strong>{{ product.nome }}</strong></h1>
+              <div class="preco">
+                  <h3><strong>R$&nbsp;{{ product.preco }}</strong></h3>
+              </div>
+              <table class="table">
+                  <thead>
+                      <tr>
+                          <th scope="col">Quantidade</th>
+                          <th scope="col">Desconto</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr v-for="(discount, index) in discounts" :key="index">
+                          <th scope="row">{{ discount.quantity }}</th>
+                          <td>{{ discount.percent }}% OFF</td>
+                      </tr>
+                  </tbody>
+              </table>
+              <div class="product-input">
+                  <p>{{ product.descricao }}</p>
+                  <span class="input-heading">Tamanho:</span>
+                  <select v-model="selectedMaterial" class="form-control">
+                      <option value="">Selecione o tamanho:</option>
+                      <option v-for="size in sizes" :key="size" :value="size">{{ size }}</option>
+                  </select>
+                  <span class="input-heading">Quantidade:</span>
+                  <input type="number" v-model.number="userData.quantidade" class="form-control small-textinput" placeholder="0">
+                  <h4 class="inventory" v-if="inventory > 0">Restam {{ inventory }} em estoque</h4>
+                  <h4 class="inventory" v-else>Sem estoque</h4>
+                  <button @click="addToCart" class="btn btn-primary bg-dark" style="margin: 5px;">Adicionar ao carrinho</button>
+              </div>
+          </div>
       </div>
-    </div>
-    <div class="position-cards">
-      <div class="card text-bg-secondary mb-3" style="max-width: 28rem; color: black !important;">
-        <div class="card-title" style="font-size: 1.5rem; color: green;">Resumo da compra</div>
-        <hr />
-        <div class="card-body" style="color: white;">
-          <div class="table-responsive-sm">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th class="text-buy" scope="col">Total</th>
-                  <th class="text-buy" scope="col">{{ formatPrice(total) }}</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th class="text-buy" scope="col">Desconto</th>
-                  <th class="text-buy" scope="col">{{ desconto }}</th>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="table-responsive-sm">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th class="text-buy" scope="col">Calcular Frete</th>
-                </tr>
-              </thead>
-            </table>
-          </div>
-          <tbody class="table-group-divider">
-            <tr>
-              <th scope="row"></th>
-              <th class="text-buy2" scope="col">
-                <div class="input-group mb-3">
-                  <input type="text" class="form-control" placeholder="_____-___" aria-label="Recipient's username"
-                    aria-describedby="button-addon2">
-                  <button class="btn btn-success" type="button" id="button-addon2">Calcular</button>
-                </div>
-              </th>
-            </tr>
-          </tbody>
-          <router-link><a style="color: green;">Adicionar Cupom</a></router-link>
-          <center><a href="#" class="btn btn-success" style="width: 20rem; margin-top: 80px;">Finalizar Compra</a></center>
-        </div>
-      </div>
-    </div>
+  </div>
+
+  <div v-else>
+      <p>Produto não encontrado.</p>
   </div>
 </template>
 
 <script>
-import UpdateCarrinhoDataService from '../services/UpdateCarrinhoDataService.js';
-import ProductCarrinhoDataService from '../services/ProductCarrinhoDataService.js';
-import DeleteProductFromCarrinhoDataService from '../services/DeleteProductFromCarrinhoDataService.js';
+import axios from 'axios';
+import CarrinhoDataService from '../services/CarrinhoDataService.js';
 
 export default {
-  name: 'CarrinhodeComprasComponent',
+  name: 'ProductDetails',
   data() {
-    return {
-      produtos: [],
-      total: 0,
-      desconto: '0%'
-    };
+      return {
+          product: null,
+          selectedMaterial: '',
+          userData: {
+              quantidade: 0,
+              imageURL: '',
+              product: '',
+              preco: 0
+          },
+          inventory: 0,
+          currentIndex: 0,
+          images: [],
+          sizes: [],
+          discounts: [
+              { quantity: 2, percent: 5 },
+              { quantity: 3, percent: 10 },
+              { quantity: 4, percent: 15 },
+              { quantity: 5, percent: 20 }
+          ]
+      };
   },
   methods: {
-    fetchProdutos() {
-      ProductCarrinhoDataService.get()
-        .then(response => {
-          this.produtos = response.data;
-          this.calculateTotal();
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    },
-    removerProduto(idProduct) {
-      DeleteProductFromCarrinhoDataService.delete(idProduct)
-        .then(response => {
-          console.log("Produto removido com sucesso:", response.data);
-          this.fetchProdutos();
-        })
-        .catch(error => {
-          console.error("Erro ao remover produto:", error);
-        });
-    },
-    aumentaQuantidade(idProduct) {
-      const produto = this.produtos.find(produto => produto.id === idProduct);
-      produto.quantidade++;
-      this.updateProduct(produto);
-    },
-    diminuiQuantidade(idProduct) {
-      const produto = this.produtos.find(produto => produto.id === idProduct);
-      if (produto.quantidade > 1) {
-        produto.quantidade--;
-        this.updateProduct(produto);
-      }
-    },
-    atualizaQuantidade(produto) {
-      if (produto.quantidade < 1) {
-        produto.quantidade = 1;
-      }
-      this.updateProduct(produto);
-    },
-    updateProduct(produto) {
-      UpdateCarrinhoDataService.update(produto.id, { quantidade: produto.quantidade })
-        .then(response => {
-          console.log("Produto atualizado com sucesso:", response.data);
-          this.calculateTotal();
-        })
-        .catch(error => {
-          console.error("Erro ao atualizar produto:", error);
-        });
-    },
-    calculateTotal() {
-      let total = 0;
-      let desconto = '0%';
+      async fetchProduct() {
+          const productId = this.$route.params.id;
+          try {
+              const response = await axios.get(`https://localhost:7077/produto/${productId}`);
+              const productData = response.data;
 
-      this.produtos.forEach(produto => {
-        const precoTotal = produto.preco * produto.quantidade;
-        total += precoTotal;
-      });
+              if (productData.imageURL) {
+                  this.images = [{ src: productData.imageURL }];
+              } else {
+                  this.images = [];
+              }
 
-      // Aplicando descontos progressivos
-      if (this.produtos.length >= 2 && this.produtos.length < 3) {
-        desconto = '5%';
-        total = total - (total * 0.05);
-      } else if (this.produtos.length >= 3 && this.produtos.length < 4) {
-        desconto = '10%';
-        total = total - (total * 0.10);
-      } else if (this.produtos.length >= 4 && this.produtos.length < 5) {
-        desconto = '15%';
-        total = total - (total * 0.15);
-      } else if (this.produtos.length >= 5) {
-        desconto = '20%';
-        total = total - (total * 0.20);
+              this.product = productData;
+              this.userData.product = productData.nome;
+              this.userData.imageURL = productData.imageURL;
+              this.userData.preco = productData.preco;
+              this.inventory = productData.estoque;
+              this.sizes = productData.tamanhos || [];
+          } catch (error) {
+              console.error('Erro ao buscar o produto:', error);
+              this.product = null;
+          }
+      },
+      addToCart() {
+          if (this.selectedMaterial === '' || this.userData.quantidade <= 0) {
+              alert('Por favor, selecione um tamanho e uma quantidade válida.');
+              return;
+          }
+
+          if (this.userData.quantidade > this.inventory) {
+              alert('Quantidade maior que o estoque disponível.');
+              return;
+          }
+
+          // Enviando os dados completos ao carrinho
+          const cartData = {
+              productId: this.product.id,
+              nome: this.product.nome,
+              preco: this.product.preco,
+              quantidade: this.userData.quantidade,
+              tamanho: this.selectedMaterial,
+              imageURL: this.product.imageURL
+          };
+
+          CarrinhoDataService.create(cartData)
+              .then(response => {
+                  console.log(response.data);
+                  alert('Produto adicionado ao carrinho com sucesso!');
+                  this.$router.push('/carrinho');
+              })
+              .catch(error => {
+                  console.error('Erro ao adicionar ao carrinho:', error);
+                  alert('Ocorreu um erro ao adicionar o produto ao carrinho.');
+              });
+      },
+      nextSlide() {
+          this.currentIndex = (this.currentIndex + 1) % this.images.length;
+      },
+      prevSlide() {
+          this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
+      },
+      changeSlide(index) {
+          this.currentIndex = index;
       }
-
-      this.total = total;
-      this.desconto = desconto;
-    },
-    formatPrice(price) {
-      return price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-    }
   },
   mounted() {
-    this.fetchProdutos();
+      this.fetchProduct();
   }
 };
 </script>
 
 <style scoped>
-.container {
-  display: flex;
-  flex-wrap: wrap;
+.product-img img {
   width: 100%;
-  height: 100vh;
-  border: none;
+  height: auto;
+  border: 1px solid #ccc;
 }
-.img-main {
-  background-color: rgba(19, 35, 47, 0.9);
-  justify-content: center;
+
+.product-container {
+  max-width: 1000px;
+  margin: 20px auto;
 }
-.card {
-  justify-content: center;
-  width: 80rem;
-  border-color: #eeeeee;
-  box-sizing: border-box;
-  border-radius: 1.3rem;
+
+.product-input {
+  margin-bottom: 10px;
 }
-b {
-  color: #34e7f8;
+
+.input-heading {
+  font-weight: bold;
+  margin-top: 10px;
+  display: block;
 }
-.card-title {
-  color: #34e7f8;
-  text-align: center;
-  font-size: 2rem;
-  background-color: white;
-  border-radius: 20px;
+
+.small-textinput {
+  height: 35px;
+  width: 100%;
+  max-width: 100px;
 }
-.text-bg-secondary {
-  background-color: white !important;
+
+.inventory {
+  color: green;
 }
-.card-text {
-  color: #34e7f8;
+
+.product-container {
+  margin-top: 60px;
 }
-.card.border-card.mb-3 {
-  width: 50rem;
+
+.inventory {
+  font-size: small;
 }
-.position-cards .card {
-  display: flex;
-  flex-wrap: wrap;
-  width: auto;
-  position: static;
-  padding: 12px;
-  border: none;
+
+.carousel {
+  position: relative;
 }
-.card-img-top {
-  width: 50px;
+
+.carousel-inner {
+  position: relative;
+  width: 100%;
+  height: 400px;
 }
-.card.text-bg-secondary.mb-3 {
-  left: 50px;
+
+.carousel-item {
+  display: none;
+  transition: opacity 0.6s ease-in-out;
 }
-body {
-  background-color: white;
+
+.carousel-item.active {
+  display: block;
 }
-.colunas {
-  text-align: center;
+
+.carousel img {
+  width: 100%;
+  height: auto;
 }
-.text-input {
-  text-align: center;
-  border-radius: 10px;
-  border-color: #dee2e6;
-  border-style: solid;
+
+.carousel-control-prev,
+.carousel-control-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  cursor: pointer;
 }
-.text-buy {
-  text-align: center;  
+
+.carousel-control-prev {
+  left: 0;
   color: black;
 }
 
+.carousel-control-next {
+  right: 0;
+  color: black;
+}
+
+.carousel-thumbnails {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.carousel-thumbnails img {
+  width: 80px;
+  height: 80px;
+  cursor: pointer;
+  margin-right: 5px;
+  border: 1px solid #ccc;
+}
+
+.thumbnail.active {
+  border-color: #007bff;
+}
 </style>
