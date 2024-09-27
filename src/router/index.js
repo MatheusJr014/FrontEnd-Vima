@@ -17,11 +17,6 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/product/:id',
-      name: 'ProductDetails',
-      component: () => import('@/components/ProductDetails.vue')
-    },
-    {
       path: '/contact',
       name: 'contact',
       component: () => import('../views/ContactView.vue')
@@ -63,10 +58,10 @@ const router = createRouter({
       component:()=>import('../views/admin/DeleteProductView.vue')
     },
     {
-      path: '/testCart/:id',
-      name: 'test',
-      component:()=>import('@/components/ProductDetails/ProductComponents.vue')  
-
+      path: '/productSelecionado/:id',
+      name: 'productSelecionado',
+      component:()=>import('../views/ProductView.vue'),  
+      props: true 
     }
   ]
 })

@@ -50,7 +50,7 @@ onMounted(() => {
             <!-- <router-link class="nav-link" aria-current="page" to="/testCart">
               <button class="custom-button mt-3">Ver Agora &#8594;</button>
             </router-link> -->
-            <router-link :to="`/testCart/${product.id}`" class="nav-link" aria-current="page">
+            <router-link :to="`/productSelecionado/${product.id}`" class="nav-link" aria-current="page">
              <button class="custom-button mt-3">Ver Agora &#8594;</button>
             </router-link>
 
