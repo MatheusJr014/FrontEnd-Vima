@@ -34,11 +34,9 @@
             <router-link class="nav-link" aria-current="page" to="/login"><span class="material-symbols-outlined">account_circle</span></router-link>
           </li>
           <li class="nav-item nav-car ms-auto">
-            <router-link class="nav-link" aria-current="page" to="/cart"><span class="material-symbols-outlined">shopping_cart</span></router-link>
+            <router-link class="nav-link" aria-current="page" to="/carrinho"><span class="material-symbols-outlined">shopping_cart</span></router-link>
           </li>
-          <!-- <li class="nav-item nav-car ms-auto">
-            <router-link class="nav-link" aria-current="page" to="/cart"><img class="cart-img" src="/src/assets/images/cart.svg"></router-link>
-          </li> -->
+       
         </ul>
       </div>
     </div>
@@ -48,7 +46,7 @@
     <router-view></router-view>
   </div>
 
-  <!-- <footer class="bg-dark text-white text-center py-3 mt-auto">
+  <footer class="bg-dark text-white text-center py-3 mt-auto">
     <div class="container">
       <p>&copy; 2024 Sua Empresa. Todos os direitos reservados.</p>
       <p>
@@ -56,7 +54,7 @@
         <a href="#" class="text-white">FAQ</a>
       </p>
     </div>
-  </footer> -->
+  </footer>
 </template>
 
 <script setup>
