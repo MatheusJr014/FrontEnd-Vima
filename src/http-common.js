@@ -9,7 +9,7 @@ export default axios.create({
         post: 'POST', 
         get: 'GET',
         put: 'PUT',
-        delete: 'DELETE' // Corrigido de 'del' para 'delete'
+        delete: 'DELETE' 
     }
     
 });

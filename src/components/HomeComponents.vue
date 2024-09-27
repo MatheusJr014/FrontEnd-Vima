@@ -47,10 +47,10 @@ onMounted(() => {
             <span class="title">{{ product.nome }}</span>
             <span class="price"><b>R$ {{ product.preco }}</b></span>
 
-            <!-- <router-link class="nav-link" aria-current="page" to="/product">
+            <!-- <router-link class="nav-link" aria-current="page" to="/testCart">
               <button class="custom-button mt-3">Ver Agora &#8594;</button>
             </router-link> -->
-            <router-link :to="`/product/${product.id}`" class="nav-link" aria-current="page">
+            <router-link :to="`/testCart/${product.id}`" class="nav-link" aria-current="page">
              <button class="custom-button mt-3">Ver Agora &#8594;</button>
             </router-link>
 

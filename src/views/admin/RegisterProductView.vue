@@ -1,11 +1,5 @@
-<template>
-    <div id="app">
-      <Card />
-    </div>
-  </template>
-  
-  <script>
-  import Card from '../components/CadastrarProdutosComponent.vue';
+<script>
+  import Card from '@/components/AdminComponents/CadastrarProdutosComponent.vue';
   
   export default {
     name: 'App',
@@ -13,7 +7,15 @@
       Card
     }
   };
-  </script>
+</script>
+
+<template>
+    <div id="app">
+      <Card />
+    </div>
+  </template>
+  
+  
   
   <style>
   #app {

@@ -1,9 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import CartView from '../views/CartView.vue'
+import CarrinhoView from '../views/CarrinhoView.vue'
 import ProductView from '../views/ProductView.vue'
 import ContactView from '../views/ContactView.vue'
 import RegisterView from '../views/RegisterView.vue'
+import AdminView from '../views/admin/AdminView.vue'
+
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -24,15 +27,10 @@ const router = createRouter({
       component: () => import('../views/ContactView.vue')
     },
     {
-      path: '/product',
-      name: 'product',
-      component: () => import('../views/ProductView.vue')
-    },
-    {
-      path: '/cart',
-      name: 'cart',
+      path: '/carrinho',
+      name: 'carrinho',
       
-      component: () => import('../views/CartView.vue')
+      component: () => import('../views/CarrinhoView.vue')
     },
     {
       path: '/login', 
@@ -47,22 +45,28 @@ const router = createRouter({
     {
       path: '/admin', 
       name: 'admin', 
-      component:() => import('../views/AdminView.vue')
+      component:() => import('../views/admin/AdminView.vue')
     },
     {
       path: '/registerProduct',
       name: 'registerProduct',
-      component:() => import('../views/RegisterProductView.vue')
+      component:() => import('../views/admin/RegisterProductView.vue')
     },
     {
       path: '/editProduct',
       name: 'editProduct',
-      component:()=>import('../views/EditProductView.vue')
+      component:()=>import('../views/admin/EditProductView.vue')
     },
     {
       path: '/deleteProduct',
       name: 'deleteProduct',
-      component:()=>import('../views/DeleteProductView.vue')
+      component:()=>import('../views/admin/DeleteProductView.vue')
+    },
+    {
+      path: '/testCart/:id',
+      name: 'test',
+      component:()=>import('@/components/ProductDetails/ProductComponents.vue')  
+
     }
   ]
 })
