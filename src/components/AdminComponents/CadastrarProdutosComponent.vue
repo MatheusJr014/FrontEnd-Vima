@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import ProdutoDataService from '../services/ProdutoDataService.js'
+import ProdutoDataService from '@/services/ProdutoDataService.js'
 
 export default {
     name: 'newCriar', 

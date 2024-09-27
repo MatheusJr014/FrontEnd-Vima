@@ -15,7 +15,7 @@
   </template>
   
   <script>
-  import DeleteProductDataService from '../services/DeleteProductDataService';
+  import DeleteProductDataService from '@/services/DeleteProductDataService';
   
   export default {
     name: 'deleteProduct',

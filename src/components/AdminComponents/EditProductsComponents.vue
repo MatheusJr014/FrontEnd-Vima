@@ -39,7 +39,7 @@
     </template>
     
     <script>
-    import UpdateDataService from '../services/UpdateDataService';
+    import UpdateDataService from '@/services/UpdateDataService';
     
     export default {
       name: 'upProduct',

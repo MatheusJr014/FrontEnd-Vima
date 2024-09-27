@@ -1,23 +1,19 @@
+  
+<script>
+
+import ProductsComponents from '@/components/ProductsComponents.vue';
+
+</script>
+
 <template>
-    <div>
+  <div>
+
+    <ProductsComponents />
+  </div>
+</template>
+
   
-      <ProductsComponents />
-    </div>
-  </template>
-  
-  <script>
-  
-  import ProductsComponents from '../components/ProductsComponents.vue';
-  
-  export default {
-  
-    components: {
-      ProductsComponents 
-    }
-  }
-  </script>
-  
-  <style scoped>
-  
-  </style>
+<style scoped>
+
+</style>
   
