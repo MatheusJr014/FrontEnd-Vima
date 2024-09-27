@@ -46,12 +46,13 @@
                 <div class="product-input">
                     <p>{{ product.descricao }}</p>
                     <span class="input-heading">Tamanho:</span>
-                    <select v-model="selectedMaterial" class="form-control">
+                    <select class="form-control" v-model="userData.tamanhos">
                         <option value="">Selecione o tamanho:</option>
                         <option v-for="size in sizes" :key="size" :value="size">{{ size }}</option>
                     </select>
                     <span class="input-heading">Quantidade:</span>
-                    <input type="number" v-model.number="userData.quantidade" class="form-control small-textinput" placeholder="0">
+                    <input type="number" v-model.number="userData.quantidade" class="form-control small-textinput" placeholder="1" min="1" step="1">
+                    <span v-if="userData.quantidade <= 0" style="color: red;">A quantidade deve ser maior que zero.</span>
                     <h4 class="inventory" v-if="inventory > 0">Restam {{ inventory }} em estoque</h4>
                     <h4 class="inventory" v-else>Sem estoque</h4>
                     <button @click="saveProductToCart" class="btn btn-primary bg-dark" style="margin: 5px;">Adicionar ao carrinho</button>
@@ -130,14 +131,39 @@ export default {
         },
 
         saveProductToCart() {
+            // Verifica se a quantidade é válida
+            if (this.userData.quantidade <= 0) {
+                alert('A quantidade deve ser maior que zero.');
+                return;
+            }
+        
+            // Verifica se há estoque suficiente
+            if (this.userData.quantidade > this.inventory) {
+                alert('Quantidade solicitada maior do que o disponível em estoque.');
+                return;
+            }
+            if (!this.userData.tamanhos) {
+                alert('Por favor, selecione um tamanho.');
+                return;
+            }
+            // Faz a requisição para adicionar ao carrinho
             CarrinhoDataService.create(this.userData)
             .then(response => {
-                console.log(response.data); 
-                this.submitted = true; 
+                console.log(response.data);
+            
+                // Atualiza o estoque localmente após o envio
+                this.inventory -= this.userData.quantidade;
+            
+                // Limpa a quantidade no input após a adição ao carrinho
+                this.userData.quantidade = 0;
+            
+                alert('Produto adicionado ao carrinho!');
+                this.submitted = true;
             })
             .catch(error => {
-                console.log(error); 
-            }); 
+                console.log(error);
+                alert('Ocorreu um erro ao adicionar o produto ao carrinho.');
+            });
         },
         nextSlide() {
             this.currentIndex = (this.currentIndex + 1) % this.images.length;
