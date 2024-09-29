@@ -25,7 +25,7 @@
         </div>
         <div class="mb-3">
         <label for="formGroupExampleFile" class="form-label">Imagem do Produto</label>
-        <input type="text" class="form-control" id="formGroupExampleInput2" v-model="userData.imageURL" placeholder="Insira o tamanho"/>
+        <input type="text" class="form-control" id="formGroupExampleInput2" v-model="userData.imageURL" placeholder="Insira a imagem do produto"/>
       </div>
       <button @click="submit" class="btn btn-primary">Cadastrar produto</button>
       </form>
