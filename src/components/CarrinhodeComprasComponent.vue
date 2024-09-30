@@ -170,23 +170,25 @@ export default {
     calculateTotal() {
       let total = 0;
       let desconto = '0%';
+      let totalItems = 0; 
 
       this.produtos.forEach(produto => {
         const precoTotal = produto.preco * produto.quantidade;
         total += precoTotal;
+        totalItems += produto.quantidade; 
       });
 
-      // Aplicando descontos progressivos
-      if (this.produtos.length >= 2 && this.produtos.length < 3) {
+      
+      if (totalItems >= 2 && totalItems < 3) {
         desconto = '5%';
         total = total - (total * 0.05);
-      } else if (this.produtos.length >= 3 && this.produtos.length < 4) {
+      } else if (totalItems >= 3 && totalItems < 4) {
         desconto = '10%';
         total = total - (total * 0.10);
-      } else if (this.produtos.length >= 4 && this.produtos.length < 5) {
+      } else if (totalItems >= 4 && totalItems < 5) {
         desconto = '15%';
         total = total - (total * 0.15);
-      } else if (this.produtos.length >= 5) {
+      } else if (totalItems >= 5) {
         desconto = '20%';
         total = total - (total * 0.20);
       }
@@ -194,6 +196,7 @@ export default {
       this.total = total;
       this.desconto = desconto;
     },
+    
     formatPrice(price) {
       return price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
     }
