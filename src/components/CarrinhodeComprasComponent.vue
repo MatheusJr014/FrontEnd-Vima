@@ -56,7 +56,7 @@
     </div>
     <div class="position-cards">
       <div class="card text-bg-secondary mb-3" style="max-width: 28rem; color: black !important; margin-top: 3.6vh">
-        <div class="card-title" style="font-size: 1.5rem; color: #34e7f8; "><b>RESUMO DE COMPRA</b></div>
+        <div class="card-title" style="font-size: 1.5rem; color: #198754; "><b>RESUMO DE COMPRA</b></div>
         <hr />
         <div class="card-body" style="color: white;">
           <div class="table-responsive-sm">
@@ -91,13 +91,13 @@
                 <div class="input-group mb-3">
                   <input type="text" class="form-control" placeholder="_____-___" aria-label="Recipient's username"
                     aria-describedby="button-addon2">
-                  <button class="btn" style="background-color:#34e7f8; color:white" type="button" id="button-addon2">Calcular</button>
+                  <button class="btn btn-success"  type="button" id="button-addon2">Calcular</button>
                 </div>
               </th>
             </tr>
           </tbody>
-          <router-link><a style="color: #34e7f8;">Adicionar Cupom</a></router-link>
-          <center><a href="#" class="btn" style="width: 20rem; margin-top: 80px;background-color:#34e7f8; color:white">Finalizar Compra</a></center>
+          <router-link><a class="btn btn-success">Adicionar Cupom</a></router-link>
+          <center><a href="#" class="btn btn-success" style="width: 20rem; margin-top: 80px;b">Finalizar Compra</a></center>
         </div>
       </div>
     </div>
@@ -227,7 +227,7 @@ export default {
   border-radius: 1.3rem;
 }
 b {
-  color: #34e7f8;
+  color: #198754;
 }
 .card-title {
   color: #34e7f8;

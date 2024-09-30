@@ -11,9 +11,7 @@ import NavBarComponent from '../components/NavBarComponent.vue';
     <ContactComponent/> 
   </div>
 
-  <div>
-    <FooterComponent />
-  </div>
+
 </template>
 
 <style scoped>

@@ -6,7 +6,8 @@
         <h3 class="login-title">Login</h3>
         <input type="text" placeholder="Email" v-model="login" class="login-input">
         <input type="password" placeholder="Senha" v-model="senha" class="login-input">
-        <button type="submit" class="login-button">Entrar</button>
+        <button type="submit" class="login-button"><router-link to="/admin" >Entrar</router-link></button>
+
         <a href="#" class="forgot-password">Esqueceu a senha?</a>
         <p class="register-message">Você ainda não tem uma conta? <router-link to="/register" class="register-link">Crie uma agora!</router-link></p>
       </form>

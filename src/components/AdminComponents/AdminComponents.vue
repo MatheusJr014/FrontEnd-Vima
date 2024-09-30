@@ -49,6 +49,7 @@ onMounted(() => {
         <table class="table table-bordered">
           <thead class="thead-light">
             <tr>
+              <th scope="col">ID</th>
               <th scope="col">Nome</th>
               <th scope="col">Descrição</th>
               <th scope="col">Preço</th>
@@ -59,6 +60,7 @@ onMounted(() => {
           </thead>
           <tbody>
             <tr v-for="product in products" :key="product.id"> <!-- Usando v-for para iterar sobre produtos -->
+              <td>{{ product.id }}</td>
               <td>{{ product.nome }}</td>
               <td>{{ product.descricao }}</td>
               <td>R$ {{ product.preco.toFixed(2) }}</td> <!-- Supondo que o preço seja um número -->

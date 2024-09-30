@@ -12,7 +12,4 @@ import NavBarComponent from '../components/NavBarComponent.vue';
   <div>
     <HomeComponents /> 
   </div>
-  <div>
-    
-  </div>
 </template>
