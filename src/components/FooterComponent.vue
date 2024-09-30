@@ -8,18 +8,15 @@
    </p>
  </div>
 </footer>
-
-
 </template>
 
 <script>
-
-
 </script>
 
-
-
 <style>
-
-
+ footer {
+  width: 100%;
+  position: absolute;
+  top: 100%;
+ }
 </style>

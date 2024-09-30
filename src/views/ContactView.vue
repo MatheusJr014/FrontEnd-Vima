@@ -16,3 +16,7 @@ import NavBarComponent from '../components/NavBarComponent.vue';
   </div>
 </template>
 
+<style scoped>
+
+</style>
+
