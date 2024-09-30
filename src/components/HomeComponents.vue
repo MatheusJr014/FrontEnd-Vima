@@ -40,21 +40,18 @@ onMounted(() => {
     <div class="row">
       <div v-for="product in products" :key="product.id" class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
         <div class="card">
+          <span class="title"><b>{{ product.nome }}</b></span>
+            <span class="price"><b>R$ {{ product.preco }}</b></span>
           <div class="image">
             <img :src="product.imageURL" alt="Imagem do produto" />
           </div>
           <div class="card-body">
-            <span class="title">{{ product.nome }}</span>
-            <span class="price"><b>R$ {{ product.preco }}</b></span>
-
             <!-- <router-link class="nav-link" aria-current="page" to="/testCart">
               <button class="custom-button mt-3">Ver Agora &#8594;</button>
             </router-link> -->
             <router-link :to="`/productSelecionado/${product.id}`" class="nav-link" aria-current="page">
              <button class="custom-button mt-3">Ver Agora &#8594;</button>
             </router-link>
-
-            
           </div>
         </div>
       </div>
@@ -105,14 +102,9 @@ onMounted(() => {
   width: 100%;
   position: absolute;
   left: 0;
-  bottom: -60px;
+  bottom: 0;
   transition: all 80ms;
   height: 5em;
-  opacity: 0;
-}
-
-.card:hover .custom-button {
-  bottom: 0;
   opacity: 1;
 }
 
@@ -122,21 +114,21 @@ onMounted(() => {
 }
 
 .card .title {
-  font-family: Arial, Helvetica, sans-serif;
+  
   font-size: 1.4em;
   position: absolute;
-  left: 0.625em;
-  bottom: 1.875em;
+  bottom: 90%;
   font-weight: 400;
+  text-align: center;
   color: #000;
 }
 
 .card .price {
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  
   font-size: 1.1em;
   position: absolute;
-  left: 0.625em;
-  bottom: 0.625em;
+  left: 10%;
+  bottom: 23%;
   color: #000;
 }
 
@@ -158,6 +150,7 @@ onMounted(() => {
 .container {
   background-color: rgba(0, 0, 0, 0);
   margin-top: 5vh;
+  margin-bottom: 5vh;
 }
 
 .container img {
