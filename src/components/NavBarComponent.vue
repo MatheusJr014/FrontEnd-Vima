@@ -41,17 +41,9 @@
       </div>
     </div>
   </nav>
-
-
 </template>
 
-
-
-
-
 <script>
-
-
 </script>
 
 <style>
@@ -68,9 +60,6 @@
 .navbar-nav.search{
   left: 50px;
 }
-
-
-
 
 .logo i {
   color: var(--main-color);

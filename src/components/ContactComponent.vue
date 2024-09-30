@@ -1,6 +1,6 @@
 <template>
     <main>
-      <div class="container" id="app">
+      <div class="container" id="app" style="margin-top:5vh;">
         <div class="row">
           <div class="col-md-6">
             <form class="contact-form" @submit.prevent="saveContato">
@@ -163,6 +163,6 @@
   </script>
   
   <style scoped>
-  /* Adicione seu estilo aqui */
+
   </style>
   

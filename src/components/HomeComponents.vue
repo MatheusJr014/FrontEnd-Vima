@@ -57,6 +57,16 @@ onMounted(() => {
       </div>
     </div>
   </div>
+    <footer style="width: 100%;position: absolute;top: 130vh;" class="bg-dark text-white text-center py-3 mt-auto">
+     <div>
+       <p>&copy; 2024 Sua Empresa. Todos os direitos reservados.</p>
+       <p>
+         <a href="#" class="text-white me-2">Política de Privacidade</a>
+         <a href="#" class="text-white">FAQ</a>
+       </p>
+     </div>
+    </footer>
+    
 </template>
 
 <style scoped>
@@ -93,7 +103,7 @@ onMounted(() => {
 }
 
 .custom-button {
-  background-color: #00AC7C;
+  background-color: #34e7f8;
   color: #fff;
   border: none;
   padding: 10px 20px;
@@ -109,7 +119,7 @@ onMounted(() => {
 }
 
 .card:active .custom-button {
-  background-color: #007b63;
+  background-color: #34e7f8;
   transform: scale(1.1);
 }
 
@@ -123,11 +133,12 @@ onMounted(() => {
   color: #000;
 }
 
+
 .card .price {
-  font-size: 1.1em;
+  font-size: 1.5em;
   position: absolute;
   left: 10%;
-  bottom: 23%;
+  bottom: 22%;
   color: #000;
 }
 
