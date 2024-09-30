@@ -16,7 +16,7 @@
   
   <script>
   import DeleteProductDataService from '@/services/DeleteProductDataService';
-  
+ 
   export default {
     name: 'deleteProduct',
     data() {

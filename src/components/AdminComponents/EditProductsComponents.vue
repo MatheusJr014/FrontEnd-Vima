@@ -40,7 +40,7 @@
     
     <script>
     import UpdateDataService from '@/services/UpdateDataService';
-    
+  
     export default {
       name: 'upProduct',
       data() {
