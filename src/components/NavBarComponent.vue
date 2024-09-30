@@ -25,10 +25,10 @@
         </ul>       
         <ul class="navbar-nav ms-auto">
           <form class="d-flex" role="search" style="height: 2rem; margin-top: 3.5px;">
-            <button class="btn btn-light" type="submit" style="background-color: #212529; border-color: #212529;">
+            <button class="btn btn-light" type="submit" style="background-color: #212529; border-color: #212529; ">
               <span class="material-symbols-outlined" style="color: #C7C8C9;">search</span>
             </button>
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="border-radius: 50rem; width: 170px; height: 40px; text-align: center; margin-top: -5px;">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="border-radius: 50rem; width: 170px; height: 30px; text-align: center; margin-top: 2px">
           </form>
           <li class="nav-item nav-car ms-auto">
             <router-link class="nav-link" aria-current="page" to="/login"><span class="material-symbols-outlined">account_circle</span></router-link>
@@ -61,10 +61,15 @@
   color: var(--tex-color);
   font-size: 28px;
   font-weight: bold;
+  margin-left: 0.9vw;
+  margin-right: 5vw;
 }
+
 .navbar-nav.search{
   left: 50px;
 }
+
+
 
 
 .logo i {
@@ -83,6 +88,7 @@
 .central-nav {
   display: flex;
   justify-content: center;
+  width: 60vw;
   flex: 1;
 }
 

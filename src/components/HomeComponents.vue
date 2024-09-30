@@ -124,7 +124,6 @@ onMounted(() => {
 }
 
 .card .price {
-  
   font-size: 1.1em;
   position: absolute;
   left: 10%;
