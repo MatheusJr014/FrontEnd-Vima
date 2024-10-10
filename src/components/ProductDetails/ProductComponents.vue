@@ -22,13 +22,15 @@
                     </div>
                 </div>
             </div>
-  
+
             <!-- Coluna das informações do produto -->
             <div class="col-md-7">
                 <h1><strong>{{ product.nome }}</strong></h1>
                 <div class="preco">
                     <h3><strong>R$&nbsp;{{ product.preco }}</strong></h3>
                 </div>
+
+                <!-- Tabela de Medidas (Descontos por Quantidade) -->
                 <table class="table">
                     <thead>
                         <tr>
@@ -43,24 +45,33 @@
                         </tr>
                     </tbody>
                 </table>
+
                 <div class="product-input">
                     <p>{{ product.descricao }}</p>
+
                     <span class="input-heading">Tamanho:</span>
-                    <select class="form-control" v-model="userData.tamanhos">
-                        <option value="">Selecione o tamanho:</option>
-                        <option v-for="size in sizes" :key="size" :value="size">{{ size }}</option>
-                    </select>
+                    <!-- Botões quadrados para seleção de tamanho -->
+                    <div class="size-options">
+                        <button v-for="size in sizes" :key="size" @click="userData.tamanhos = size" :class="['size-button', { selected: userData.tamanhos === size }]">
+                            {{ size }}
+                        </button>
+                    </div>
+
                     <span class="input-heading">Quantidade:</span>
-                    <input type="number" v-model.number="userData.quantidade" class="form-control small-textinput" placeholder="1" min="1" step="1">
+                    <!-- Input de quantidade e botão de compra lado a lado -->
+                    <div class="quantity-buy">
+                        <input type="number" v-model.number="userData.quantidade" class="form-control small-textinput" placeholder="1" min="1" step="1">
+                        <button @click="saveProductToCart" class="btn btn-primary bg-dark">Comprar</button>
+                    </div>
+
                     <span v-if="userData.quantidade <= 0" style="color: red;">A quantidade deve ser maior que zero.</span>
                     <h4 class="inventory" v-if="inventory > 0">Restam {{ inventory }} em estoque</h4>
                     <h4 class="inventory" v-else>Sem estoque</h4>
-                    <button @click="saveProductToCart" class="btn btn-primary bg-dark" style="margin: 5px;">Adicionar ao carrinho</button>
                 </div>
             </div>
         </div>
     </div>
-  
+
     <div v-else>
         <p>Produto não encontrado.</p>
     </div>
@@ -98,15 +109,12 @@ export default {
     methods: {
         async fetchProduct() {
             const productId = this.$route.params.id;
-            console.log('ID do produto:', productId); // Adicionado para verificar o ID
+            console.log('ID do produto:', productId); 
             
             try {
                 const response = await axios.get(`https://localhost:7077/produto/${productId}`);
                 const productData = response.data;
                 
-                console.log('Dados do produto:', productData); // Verifique os dados retornados
-
-                // Verifica se o produto foi retornado e tem as propriedades esperadas
                 if (productData && productData.nome) {
                     this.product = productData;
                     this.userData.product = productData.nome;
@@ -114,7 +122,6 @@ export default {
                     this.inventory = productData.estoque;
                     this.sizes = productData.tamanhos || [];
 
-                    // Para lidar com as imagens
                     if (productData.imageURL) {
                         this.images = [{ src: productData.imageURL }];
                     } else {
@@ -131,13 +138,11 @@ export default {
         },
 
         saveProductToCart() {
-            // Verifica se a quantidade é válida
             if (this.userData.quantidade <= 0) {
                 alert('A quantidade deve ser maior que zero.');
                 return;
             }
         
-            // Verifica se há estoque suficiente
             if (this.userData.quantidade > this.inventory) {
                 alert('Quantidade solicitada maior do que o disponível em estoque.');
                 return;
@@ -146,17 +151,12 @@ export default {
                 alert('Por favor, selecione um tamanho.');
                 return;
             }
-            // Faz a requisição para adicionar ao carrinho
+
             CarrinhoDataService.create(this.userData)
             .then(response => {
                 console.log(response.data);
-            
-                // Atualiza o estoque localmente após o envio
                 this.inventory -= this.userData.quantidade;
-            
-                // Limpa a quantidade no input após a adição ao carrinho
                 this.userData.quantidade = 0;
-            
                 alert('Produto adicionado ao carrinho!');
                 this.submitted = true;
             })
@@ -182,10 +182,11 @@ export default {
 </script>
 
 <style>
+
 .product-img img {
   width: 100%;
   height: auto;
-  border: 1px solid #ccc;
+  border: none;
 }
 
 .product-container {
@@ -203,19 +204,44 @@ export default {
   display: block;
 }
 
-
-input.form-control.small-textinput {
-    
-    background: #dcdcdc;
+.size-options {
     display: flex;
-    font-size: 1.1rem;
-
-    text-align: center;
+    gap: 10px; /* Espaçamento entre os botões */
+    margin-bottom: 15px;
 }
+
+.size-button {
+    width: 50px;
+    height: 50px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    text-align: center;
+    line-height: 50px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.size-button.selected {
+    background-color: #606264;
+    color: white;
+    border-color: #000000;
+}
+
+.quantity-buy {
+    display: flex;
+    gap: 10px;
+    width: 15rem;
+    align-items: center;
+}
+
 .small-textinput {
-  height: 50px;
-  width: 100%;
-  max-width: 80px;
+    width: 70px; /* Largura menor para o campo de quantidade */
+    text-align: center;
+    height: 50px;
+}
+
+.btn-primary {
+    height: 50px; /* Altura do botão igual ao input */
 }
 
 .inventory {
@@ -253,8 +279,6 @@ input.form-control.small-textinput {
   width: 100%;
   height: auto;
 }
-
-
 
 .carousel-control-prev {
   left: 0;
