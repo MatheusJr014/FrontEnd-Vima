@@ -203,10 +203,19 @@ export default {
   display: block;
 }
 
+
+input.form-control.small-textinput {
+    
+    background: #dcdcdc;
+    display: flex;
+    font-size: 1.1rem;
+
+    text-align: center;
+}
 .small-textinput {
-  height: 35px;
+  height: 50px;
   width: 100%;
-  max-width: 100px;
+  max-width: 80px;
 }
 
 .inventory {
@@ -214,7 +223,7 @@ export default {
 }
 
 .product-container {
-  margin-top: 60px;
+  margin-top: 150px;
 }
 
 .inventory {
@@ -245,14 +254,7 @@ export default {
   height: auto;
 }
 
-.carousel-control-prev,
-.carousel-control-next {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 1;
-  cursor: pointer;
-}
+
 
 .carousel-control-prev {
   left: 0;
