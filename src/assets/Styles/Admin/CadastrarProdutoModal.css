@@ -1,0 +1,16 @@
+.modal {
+    display: none;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  
+  .modal.fade.show {
+    display: block;
+  }
+  
+  .modal-content {
+    background-color: #fff;
+  }
+  
+  .close {
+    cursor: pointer;
+  }
