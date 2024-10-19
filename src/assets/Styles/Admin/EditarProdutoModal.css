@@ -1,0 +1,15 @@
+.cardteste {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center; /* Centraliza horizontalmente */
+}
+.card {
+  border-radius: 5px;
+}
+.card-body {
+  background-color: #fff;
+  color: #000;
+}
+.card-text {
+    text-align: center;
+}

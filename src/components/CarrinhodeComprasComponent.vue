@@ -1,7 +1,7 @@
 <template>
   <div class="container container-fluid container-sm">
     <div class="card border-card mb-3">
-      <h5 class="card-title" style="margin-top: 5vh;"><B>CARRINHO DE COMPRAS</B></h5>
+      <h5 class="card-title" style="margin-top: 5vh;"><b>CARRINHO DE COMPRAS</b></h5>
       <div class="card-body text-dark">
         <div class="card-body">
           <div class="table-responsive-sm">
@@ -29,10 +29,8 @@
                           <button @click="aumentaQuantidade(produto.id)" class="btn" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
                             <i class="pi pi-arrow-up" style="font-size: 1.0rem"></i>
                           </button>
-
                           <input v-model="produto.quantidade" @input="atualizaQuantidade(produto)" class="text-input" style="width: 70px;" type="number" min="1">
-
-                          <button @click="diminuiQuantidade(produto.id)" class="btn " style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                          <button @click="diminuiQuantidade(produto.id)" class="btn" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
                             <i class="pi pi-arrow-down" style="font-size: 1.0rem"></i>
                           </button>
                         </center>
@@ -56,7 +54,7 @@
     </div>
     <div class="position-cards">
       <div class="card text-bg-secondary mb-3" style="max-width: 28rem; color: black !important; margin-top: 3.6vh">
-        <div class="card-title" style="font-size: 1.5rem; color: #198754; "><b>RESUMO DE COMPRA</b></div>
+        <div class="card-title" style="font-size: 1.5rem; color: #198754;"><b>RESUMO DE COMPRA</b></div>
         <hr />
         <div class="card-body" style="color: white;">
           <div class="table-responsive-sm">
@@ -82,22 +80,21 @@
                   <th class="text-buy" scope="col">Calcular Frete</th>
                 </tr>
               </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="input-group mb-3">
+                      <input type="text" class="form-control" placeholder="_____-___" aria-label="Recipient's username"
+                        aria-describedby="button-addon2">
+                      <button class="btn btn-success" type="button" id="button-addon2">Calcular</button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
             </table>
           </div>
-          <tbody class="table-group-divider">
-            <tr>
-              <th scope="row"></th>
-              <th class="text-buy2" scope="col">
-                <div class="input-group mb-3">
-                  <input type="text" class="form-control" placeholder="_____-___" aria-label="Recipient's username"
-                    aria-describedby="button-addon2">
-                  <button class="btn btn-success"  type="button" id="button-addon2">Calcular</button>
-                </div>
-              </th>
-            </tr>
-          </tbody>
           <router-link><a class="btn btn-success">Adicionar Cupom</a></router-link>
-          <center><a href="#" class="btn btn-success" style="width: 20rem; margin-top: 80px;b">Finalizar Compra</a></center>
+          <center><a href="#" class="btn btn-success" style="width: 20rem; margin-top: 80px;">Finalizar Compra</a></center>
         </div>
       </div>
     </div>
@@ -178,7 +175,6 @@ export default {
         totalItems += produto.quantidade; 
       });
 
-      
       if (totalItems >= 2 && totalItems < 3) {
         desconto = '5%';
         total = total - (total * 0.05);
@@ -193,12 +189,11 @@ export default {
         total = total - (total * 0.20);
       }
 
-      this.total = total;
+      this.total = total.toFixed(2);
       this.desconto = desconto;
     },
-    
-    formatPrice(price) {
-      return price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    formatPrice(value) {
+      return `R$ ${value.toFixed(2).replace('.', ',')}`;
     }
   },
   mounted() {
@@ -208,72 +203,10 @@ export default {
 </script>
 
 <style scoped>
-.container {
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
-  height: 100vh;
-  border: none;
-}
-.img-main {
-  background-color: rgba(19, 35, 47, 0.9);
-  justify-content: center;
-}
-.card {
-  justify-content: center;
-  width: 80rem;
-  border-color: #eeeeee;
-  box-sizing: border-box;
-  border-radius: 1.3rem;
-}
-b {
-  color: #198754;
-}
-.card-title {
-  color: #34e7f8;
-  text-align: center;
-  font-size: 2rem;
-  background-color: white;
-  border-radius: 20px;
-}
-.text-bg-secondary {
-  background-color: white !important;
-}
-.card-text {
-  color: #34e7f8;
-}
-.card.border-card.mb-3 {
-  width: 50rem;
-}
-.position-cards .card {
-  display: flex;
-  flex-wrap: wrap;
-  width: auto;
-  position: static;
-  padding: 12px;
-  border: none;
-}
-.card-img-top {
-  width: 50px;
-}
-.card.text-bg-secondary.mb-3 {
-  left: 50px;
-}
-body {
-  background-color: white;
-}
-.colunas {
-  text-align: center;
-}
 .text-input {
   text-align: center;
-  border-radius: 10px;
-  border-color: #dee2e6;
-  border-style: solid;
 }
-.text-buy {
-  text-align: center;  
-  color: black;
+.card {
+  margin-top: 20px;
 }
-
 </style>
