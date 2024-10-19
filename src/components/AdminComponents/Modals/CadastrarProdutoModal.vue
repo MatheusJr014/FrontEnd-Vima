@@ -56,7 +56,7 @@
 
 <script>
 import ProdutoDataService from '@/services/ProdutoDataService.js';
-import '@/assets/Styles/Admin/CadastrarProdutoModal.css' 
+import '@/assets/styles/Admin/CadastrarProdutoModal.css';
 export default {
   data() {
     return {

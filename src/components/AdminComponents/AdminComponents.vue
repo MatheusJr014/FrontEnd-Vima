@@ -4,15 +4,8 @@
     <SideBarAdminComponent />
     <!-- Main Content -->
     <div class="container-fluid main-container">
-      <!-- Barra de Pesquisa e Sino de Notificação -->
-      <div class="d-flex justify-content-between align-items-center p-3 shadow bg-light rounded mb-4">
-        <div class="input-group" style="width: 50vh;">
-          <input type="text" class="form-control" placeholder="Pesquisar produtos, clientes..." aria-label="Pesquisar produtos">
-          <button class="btn btn-outline-primary" type="button">Buscar</button>
-        </div>
-      </div>
       <center><h1 class="admin-title mt-4">Gerenciamento de Produtos</h1>
-        <div class="d-flex gap-3 mb-4">
+        <div class="d-flex gap-3 mb-4" style="justify-content: center;">
         <!-- Importando e usando o componente CadastrarProduto -->
           <CadastrarProdutoModal />
         </div>
@@ -40,11 +33,15 @@
               <td>{{ product.estoque }}</td>
               <td>{{ product.tamanhos }}</td>
               <td>
-                <router-link :to="{ name: 'editProduct', params: { id: product.id } }" class="text-primary">Editar</router-link> |
+                <button @click="openEditModal(product)">Editar</button> 
                 <router-link :to="{ name: 'deleteProduct', params: { id: product.id } }" class="text-danger">Excluir</router-link>
               </td>
             </tr>
           </tbody>
+          <EditarProdutoModal v-if="showEditModal"
+            :product="selectedProduct" 
+            @close="showEditModal = false"
+          />
         </table>
       </div>
     </div>
@@ -54,12 +51,21 @@
 <script setup>
 import SideBarAdminComponent from '../AdminComponents/SideBarAdminComponent.vue';
 import CadastrarProdutoModal from './Modals/CadastrarProdutoModal.vue';
-import '@/assets/Styles/Admin/AdminComponents.css' 
+import EditarProdutoModal from './Modals/EditarProdutoModal.vue';
+import '@/assets/styles/Admin/AdminComponents.css';
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 
 
+
 const products = ref([]);
+const selectedProduct = ref(null);
+const showEditModal = ref(false);
+
+const openEditModal = (product) => {
+  selectedProduct.value = product;
+  showEditModal.value = true;
+};
 
 const fetchProducts = async () => {
   try {
