@@ -2,7 +2,6 @@
   <div class="container" id="app">
        <div class="Box-Login">
            <form class="login-form" @submit.prevent="saveCadastro">
-               <img src="/src/assets/images/profile.svg" alt="Imagem de login" class="login-image">
                <h3 class="login-title">Registrar</h3>
                <input type="text" v-model="userData.nome" placeholder="Nome" class="login-input">
                <input type="text" v-model="userData.sobrenome" placeholder="Sobrenome" class="login-input">
@@ -12,7 +11,6 @@
             
                <button type="submit" class="login-button">Cadastrar</button>
                
-               <p class="register-message">Já tem uma conta? <router-link to="/login" class="register-link">Faça o login!</router-link></p>
            </form>
        </div>
    </div>

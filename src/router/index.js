@@ -62,6 +62,11 @@ const router = createRouter({
       name: 'productSelecionado',
       component:()=>import('../views/ProductView.vue'),  
       props: true 
+    },
+    {
+      path: '/delboni',
+      name: 'delboni',
+      component:()=>import('@/components/dlebonicomponent.vue')
     }
   ]
 })
