@@ -10,9 +10,6 @@ import NavBarComponent from '../components/NavBarComponent.vue';
     <div>
         <LoginComponent /> 
     </div>
-    <div>
-        <FooterComponent /> 
-    </div>
 </template>
 
 

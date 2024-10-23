@@ -11,10 +11,6 @@ import NavBarComponent from '../components/NavBarComponent.vue';
     <ContactComponent/> 
   </div>
 
-
 </template>
 
-<style scoped>
-
-</style>
 

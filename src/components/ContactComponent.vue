@@ -39,20 +39,22 @@
                 <textarea v-model="userData.description" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                 <div v-if="errors.description" class="text-danger">{{ errors.description }}</div>
               </div>
-              <button type="submit" class="btn btn-primary">Enviar</button>
+              <button type="submit" class="btn btn-outline-success">Enviar</button>
             </form>
           </div>
           <div class="col-md-6">
-            <img src="/src/assets/images/contact.svg" alt="" class="img-fluid">
-            <div class="card mt-4" style="width: 23rem;">
-              <div class="card-header"><b>Suporte por telefone</b></div>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">Telefone: (14) 998877665</li>
-                <li class="list-group-item"><b>Horários de funcionamento:</b></li>
-                <li class="list-group-item">Segunda a Sexta: 8:00 - 18:00</li>
-                <li class="list-group-item">Sábado: 09:00 - 15:00</li>
-              </ul>
-            </div>
+            <!-- <img src="/src/assets/images/contact.svg" alt="" class="img-fluid"> -->
+            <table>
+              <div class="card mt-4" style="border: none;">
+                <div class="list-group-item"><b>Suporte por telefone</b></div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">Telefone: (14) 998877665</li>
+                  <li class="list-group-item"><b>Horários de funcionamento:</b></li>
+                  <li class="list-group-item">Segunda a Sexta: 8:00 - 18:00</li>
+                  <li class="list-group-item">Sábado: 09:00 - 15:00</li>
+                </ul>
+              </div>
+           </table>
           </div>
         </div>
       </div>
@@ -162,7 +164,24 @@
   };
   </script>
   
-  <style scoped>
+  <style>
+  
+   main{
+    margin-top: 120px;
+    
+   }
+   button.btn.btn-primary {
+    background-color: #558985;
+}
+  
+li.list-group-item {
+    background-color: #f5f5f5;
+    border:none;
+}
+.list-group-item {
+    background-color: #f5f5f5 !important;
+}
+   
 
   </style>
   

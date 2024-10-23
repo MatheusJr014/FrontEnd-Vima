@@ -12,7 +12,4 @@ import NavBarComponent from '../components/NavBarComponent.vue';
   <div>
     <CarrinhodeComprasComponent />
   </div>
-  <div>
-    <FooterComponent />
-  </div>
 </template>

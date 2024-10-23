@@ -88,7 +88,7 @@ export default {
         return {
             product: null,
             userData: {
-                quantidade: 0,
+                quantidade: 1,
                 tamanhos: '',
                 imageURL: '',
                 product: '',
@@ -182,6 +182,9 @@ export default {
 </script>
 
 <style>
+body{
+    background-color: #f5f5f5 !important;
+}
 
 .product-img img {
   width: 100%;

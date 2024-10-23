@@ -11,7 +11,5 @@ import NavBarComponent from '../components/NavBarComponent.vue';
     <div>
         <RegisterComponent />        
     </div>
-    <div>
-        <FooterComponent />
-    </div>
+
 </template>
