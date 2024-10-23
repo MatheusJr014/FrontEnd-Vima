@@ -65,7 +65,7 @@
                     </div>
 
                     <span v-if="userData.quantidade <= 0" style="color: red;">A quantidade deve ser maior que zero.</span>
-                    <h4 class="inventory" v-if="inventory > 0">Restam {{ inventory }} em estoque</h4>
+                    <h4 class="inventory" v-if="inventory > 1">Restam {{ inventory }} em estoque</h4>
                     <h4 class="inventory" v-else>Sem estoque</h4>
                 </div>
             </div>
@@ -156,7 +156,7 @@ export default {
             .then(response => {
                 console.log(response.data);
                 this.inventory -= this.userData.quantidade;
-                this.userData.quantidade = 0;
+                this.userData.quantidade = 1;
                 alert('Produto adicionado ao carrinho!');
                 this.submitted = true;
             })
