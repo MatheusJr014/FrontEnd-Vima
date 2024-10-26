@@ -2,7 +2,7 @@ import http from "../http-common";
 
 class CarrinhoDataService {
     create(data) {
-        return http.post("/carrinho/criar", data);
+        return http.post("/api/Carrinho/criar", data);
     }
 }
 

@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import ProdutoDataService from '@/services/ProdutoDataService.js';
+import ProdutoDataService from '@/services/AdminService/ProdutoDataService.js';
 import '@/assets/styles/Admin/CadastrarProdutoModal.css';
 export default {
   data() {
