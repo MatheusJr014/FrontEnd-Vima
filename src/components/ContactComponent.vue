@@ -63,7 +63,7 @@
   
   <script>
   import { reactive, ref } from 'vue';
-  import ContatoDataService from '../services/ContatoDataService.js'
+  import ContatoDataService from '../services/ContatoService/ContatoDataService.js'
   
   export default {
     name: 'newContact',

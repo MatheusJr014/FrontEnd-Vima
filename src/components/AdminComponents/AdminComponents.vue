@@ -29,7 +29,7 @@
               <td>{{ product.id }}</td>
               <td>{{ product.nome }}</td>
               <td>{{ product.descricao }}</td>
-              <td>R$ {{ product.preco.toFixed(2) }}</td>
+              <td>R$ {{ product.preco }}</td>
               <td>{{ product.estoque }}</td>
               <td>{{ product.tamanhos }}</td>
               <td>
@@ -69,8 +69,8 @@ const openEditModal = (product) => {
 
 const fetchProducts = async () => {
   try {
-    const response = await axios.get('https://localhost:7077/produtos');
-    products.value = response.data;
+    const response = await axios.get('https://localhost:7077/api/Produtos/');
+    products.value = response.data.$values;
   } catch (error) {
     console.error('Erro ao buscar os produtos:', error);
   }

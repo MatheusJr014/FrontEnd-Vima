@@ -112,7 +112,7 @@ export default {
             console.log('ID do produto:', productId); 
             
             try {
-                const response = await axios.get(`https://localhost:7077/produto/${productId}`);
+                const response = await axios.get(`https://localhost:7077/api/Produtos/${productId}`);
                 const productData = response.data;
                 
                 if (productData && productData.nome) {

@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import RegisterDataService from '../services/RegisterDataService.js'
+import RegisterDataService from '../services/RegisterEloginService/RegisterDataService.js'
 
 export default {
  name: 'newSignin',

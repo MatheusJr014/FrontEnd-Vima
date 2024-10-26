@@ -2,18 +2,19 @@
 
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
-import Button from './ButtonComponents.vue';
+
 
 const products = ref([]);
-
 const fetchProducts = async () => {
   try {
-    const response = await axios.get('https://localhost:7077/produtos');
-    products.value = response.data;
+    const response = await axios.get('https://localhost:7077/api/Produtos');
+    products.value = response.data.$values;
+    console.log(response.data, 'Oii')
   } catch (error) {
     console.error('Erro ao buscar os produtos:', error);
   }
 };
+
 
 onMounted(() => {
   fetchProducts();

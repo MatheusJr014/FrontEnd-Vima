@@ -2,7 +2,7 @@ import http from "../http-common";
 
 class DeleteProductFromCarrinhoDataService {
     delete(id) {
-        return http.delete(`/carrinho/delete/${id}`);
+        return http.delete(`/api/Carrinho/delete/${id}`);
     }
 }
 
