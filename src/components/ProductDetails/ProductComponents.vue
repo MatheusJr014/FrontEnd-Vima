@@ -120,7 +120,7 @@ export default {
                     this.userData.product = productData.nome;
                     this.userData.preco = productData.preco;
                     this.inventory = productData.estoque;
-                    this.sizes = productData.tamanhos || [];
+                    this.sizes = productData.tamanhos.$values || [];
 
                     if (productData.imageURL) {
                         this.images = [{ src: productData.imageURL }];
