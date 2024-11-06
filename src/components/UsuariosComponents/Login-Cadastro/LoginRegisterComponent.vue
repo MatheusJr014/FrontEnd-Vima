@@ -17,9 +17,9 @@
     </div>
 </template>
 <script setup>
-import NavBarComponent from '../components/NavBarComponent.vue';
-import LoginComponent from '../components/LoginComponent.vue';
-import RegisterComponent from '../components/RegisterComponent.vue';
+import NavBarComponent from '../../NavBarComponent.vue';
+import LoginComponent from '../Login/LoginComponent.vue';
+import RegisterComponent from '../Cadastro/RegisterComponent.vue';
 </script>
 
 

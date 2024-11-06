@@ -26,16 +26,6 @@ const router = createRouter({
       name: 'carrinho',
       component: () => import('../views/CarrinhoView.vue')
     },
-    // {
-    //   path: '/login', 
-    //   name: 'login', 
-    //   component: ()=> import('../views/LoginView.vue')
-    // },
-    // {
-    //   path: '/register', 
-    //   name: 'register', 
-    //   component: ()=> import ('../views/RegisterView.vue')
-    // },
     {
       path: '/admin', 
       name: 'admin', 
@@ -44,17 +34,17 @@ const router = createRouter({
     {
       path: '/registerProduct',
       name: 'registerProduct',
-      component:() => import('../views/admin/RegisterProductView.vue')
+      component:() => import('../views/admin/BACKUP-TRASH/RegisterProductView.vue')
     },
     {
       path: '/editProduct',
       name: 'editProduct',
-      component:()=>import('../views/admin/EditProductView.vue')
+      component:()=>import('../views/admin/BACKUP-TRASH/EditProductView.vue')
     },
     {
       path: '/deleteProduct',
       name: 'deleteProduct',
-      component:()=>import('../views/admin/DeleteProductView.vue')
+      component:()=>import('../views/admin/BACKUP-TRASH/DeleteProductView.vue')
     },
     {
       path: '/productSelecionado/:id',
@@ -65,7 +55,7 @@ const router = createRouter({
     {
       path: '/usuario',
       name: 'usuario',
-      component:()=>import('../components/LoginRegisterComponent.vue'),  
+      component:()=>import('../components/UsuariosComponents/Login-Cadastro/LoginRegisterComponent.vue'),  
       props: true 
     }
   ]
