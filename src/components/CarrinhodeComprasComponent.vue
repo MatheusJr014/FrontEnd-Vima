@@ -133,30 +133,32 @@ export default {
     calculateTotal() {
       let total = 0;
       let desconto = '0%';
+      let totalItems = 0; 
 
       this.carrinho.forEach(item => {
         const precoTotal = item.preco * item.quantidade;
         total += precoTotal;
+        totalItems += item.quantidade; 
       });
 
       // Aplicando descontos progressivos
-      if (this.carrinho.length >= 2 && this.carrinho.length < 3) {
+      if (totalItems >= 2 && totalItems < 3) {
         desconto = '5%';
         total = total - (total * 0.05);
-      } else if (this.carrinho.length >= 3 && this.carrinho.length < 4) {
+      } else if (totalItems >= 3 && totalItems < 4) {
         desconto = '10%';
-        total = total - (total * 0.10);
-      } else if (this.carrinho.length >= 4 && this.carrinho.length < 5) {
+        total = total - (total * 0.10);git 
+      } else if (totalItems >= 4 && totalItems < 5) {
         desconto = '15%';
         total = total - (total * 0.15);
-      } else if (this.carrinho.length >= 5) {
+      } else if (totalItems >= 5) {
         desconto = '20%';
         total = total - (total * 0.20);
       }
 
       this.total = total;
       this.desconto = desconto;
-    }
+    },
   }
 };
 
