@@ -1,5 +1,5 @@
 <script setup >
-import RegisterComponent from '../components/RegisterComponent.vue';
+import RegisterComponent from '../components/UsuariosComponents/Cadastro/RegisterComponent.vue';
 import FooterComponent from '../components/FooterComponent.vue';
 import NavBarComponent from '../components/NavBarComponent.vue'; 
 </script>
