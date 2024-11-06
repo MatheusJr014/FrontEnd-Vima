@@ -1,103 +1,56 @@
+
 <template>
-  <div class="container container-fluid container-sm">
-    <div class="card border-card mb-3">
-      <h5 class="card-title" style="margin-top: 5vh;"><b>CARRINHO DE COMPRAS</b></h5>
-      <div class="card-body text-dark">
-        <div class="card-body">
-          <div class="table-responsive-sm">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th class="colunas" scope="col">#</th>
-                  <th class="colunas" scope="col">Produto</th>
-                  <th class="colunas" scope="col">Preço</th>
-                  <th class="colunas" scope="col">Quantidade</th>
-                  <th class="colunas" scope="col">-</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="(produto, index) in produtos" :key="produto.id">
-                  <th scope="row">
-                    <center><img :src="produto.imagemURL" class="card-img-top" alt="..."></center>
-                  </th>
-                  <td><center>{{ produto.product }}</center></td>
-                  <td><center>{{ formatPrice(produto.preco) }}</center></td>
-                  <td>
-                    <div class="input-groupe">
-                      <div class="input-quant">
-                        <center>
-                          <button @click="aumentaQuantidade(produto.id)" class="btn" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-                            <i class="pi pi-arrow-up" style="font-size: 1.0rem"></i>
-                          </button>
-                          <input v-model="produto.quantidade" @input="atualizaQuantidade(produto)" class="text-input" style="width: 70px;" type="number" min="1">
-                          <button @click="diminuiQuantidade(produto.id)" class="btn" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-                            <i class="pi pi-arrow-down" style="font-size: 1.0rem"></i>
-                          </button>
-                        </center>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <center>
-                      <button @click="removerProduto(produto.id)" type="button" class="btn btn-danger"
-                        style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-                        <i class="pi pi-trash" style="font-size: 1.0rem"></i>
-                      </button>
-                    </center>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+  <div class="checkout-container">
+    <main class="content-wrapper">
+      <section class="checkout">
+        <h4>Checkout</h4>
+        <table class="product-table">
+          <thead>
+            <tr>
+              <th>Produto</th>
+              <th>Unit.</th>
+              <th>Quantidade</th>
+              <th>Preço</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(produto, index) in produtos" :key="produto.id">
+              <td class="product-details">
+                <img :src="produto.imagemURL" class="product-img" alt="Produto">
+                <div class="product-info">
+                  <p>{{ produto.product }}</p>
+                  <button @click="removerProduto(produto.id)" class="remove">Remover</button>
+                </div>
+              </td>
+              <td>{{ formatPrice(produto.preco) }}</td>
+              <td>
+                <div class="quantity-btns">
+                  <button @click="aumentaQuantidade(produto.id)" class="quantity-btn">+</button>
+                  <input v-model="produto.quantidade" @input="atualizaQuantidade(produto)" class="quantity-input" type="number" min="1" readonly>
+                  <button @click="diminuiQuantidade(produto.id)" class="quantity-btn">-</button>
+                </div>
+              </td>
+              <td>{{ formatPrice(produto.preco * produto.quantidade) }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="checkout-actions">
+          <button class="continue-btn">Continuar comprando</button>
+          <button class="checkout-btn">Finalizar Pedido</button>
         </div>
-      </div>
-    </div>
-    <div class="position-cards">
-      <div class="card text-bg-secondary mb-3" style="max-width: 28rem; color: black !important; margin-top: 3.6vh">
-        <div class="card-title" style="font-size: 1.5rem; color: #198754;"><b>RESUMO DE COMPRA</b></div>
-        <hr />
-        <div class="card-body" style="color: white;">
-          <div class="table-responsive-sm">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th class="text-buy" scope="col">Total</th>
-                  <th class="text-buy" scope="col">{{ formatPrice(total) }}</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th class="text-buy" scope="col">Desconto</th>
-                  <th class="text-buy" scope="col">{{ desconto }}</th>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="table-responsive-sm">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th class="text-buy" scope="col">Calcular Frete</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <div class="input-group mb-3">
-                      <input type="text" class="form-control" placeholder="_____-___" aria-label="Recipient's username"
-                        aria-describedby="button-addon2">
-                      <button class="btn btn-success" type="button" id="button-addon2">Calcular</button>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <router-link><a class="btn btn-success">Adicionar Cupom</a></router-link>
-          <center><a href="#" class="btn btn-success" style="width: 20rem; margin-top: 80px;">Finalizar Compra</a></center>
-        </div>
-      </div>
-    </div>
+      </section>
+
+      <aside class="order-summary">
+        <h4>Resumo do Pedido</h4>
+        <p>Total <span>{{ formatPrice(total) }}</span></p>
+        <p>Desconto <span>{{ desconto }}</span></p>
+        <p>Entrega <button class="btn-calculate">Calcular</button></p>
+        <p>Cupom de desconto <button class="btn-add-coupon">Adicionar</button></p>
+        <hr>
+        <p>Total: <span>{{ formatPrice(total) }}</span></p>
+        <p class="installments">Em até 2x de {{ formatPrice(total / 2) }} sem juros</p>
+      </aside>
+    </main>
   </div>
 </template>
 
@@ -117,13 +70,18 @@ export default {
   },
   methods: {
     fetchProdutos() {
+      // Chama a API para obter os produtos no carrinho
       ProductCarrinhoDataService.get()
         .then(response => {
-          this.produtos = response.data;
-          this.calculateTotal();
+          if (response.data && Array.isArray(response.data)) {
+            this.produtos = response.data;
+            this.calculateTotal();
+          } else {
+            console.error("A resposta da API não contém dados de produtos válidos.");
+          }
         })
         .catch(error => {
-          console.error(error);
+          console.error("Erro ao carregar produtos:", error);
         });
     },
     removerProduto(idProduct) {
@@ -166,48 +124,163 @@ export default {
     },
     calculateTotal() {
       let total = 0;
-      let desconto = '0%';
-      let totalItems = 0; 
+      let desconto = '0%' ;
 
       this.produtos.forEach(produto => {
         const precoTotal = produto.preco * produto.quantidade;
         total += precoTotal;
-        totalItems += produto.quantidade; 
       });
 
-      if (totalItems >= 2 && totalItems < 3) {
+      if (this.produtos.length >= 2 && this.produtos.length < 3) {
         desconto = '5%';
         total = total - (total * 0.05);
-      } else if (totalItems >= 3 && totalItems < 4) {
+      } else if (this.produtos.length >= 3 && this.produtos.length < 4) {
         desconto = '10%';
         total = total - (total * 0.10);
-      } else if (totalItems >= 4 && totalItems < 5) {
+      } else if (this.produtos.length >= 4 && this.produtos.length < 5) {
         desconto = '15%';
         total = total - (total * 0.15);
-      } else if (totalItems >= 5) {
+      } else if (this.produtos.length >= 5) {
         desconto = '20%';
         total = total - (total * 0.20);
       }
 
-      this.total = total.toFixed(2);
+      this.total = total;
       this.desconto = desconto;
     },
-    formatPrice(value) {
-      return `R$ ${value.toFixed(2).replace('.', ',')}`;
+    formatPrice(price) {
+      return price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
     }
   },
   mounted() {
-    this.fetchProdutos();
+    this.fetchProdutos(); // Chama a função para carregar os produtos ao montar o componente
   }
 };
+
 </script>
 
 <style scoped>
-.text-input {
-  text-align: center;
+.checkout-container {
+  font-family: Arial, sans-serif;
+  max-width: 1400px;
+  margin: 0 auto;
 }
-.card {
+
+.content-wrapper {
+  display: flex;
+  gap: 20px;
+}
+
+.checkout {
+  flex: 2;
+  padding: 10px;
+}
+
+.order-summary {
+  flex: 1;
+  max-width: 500px;
+  padding: 10px;
+  background-color: #fff;
+}
+
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.product-table th, .product-table td {
+  padding: 15px;
+  border-bottom: 1px solid #f3f3f3;
+  text-align: left;
+}
+
+.product-table th {
+  background-color: #f3f3f3;
+}
+
+.product-details {
+  display: flex;
+  align-items: center;
+}
+
+.product-img {
+  width: 60px;
+  height: 60px;
+  margin-right: 10px;
+  border-radius: 8px;
+}
+
+.product-info p {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.remove {
+  color: #000000;
+  cursor: pointer;
+  font-size: 0.9rem;
+  border: none;
+  background: none;
+}
+
+.quantity-btns {
+  display: flex;
+  align-items: center;
+}
+
+.quantity-btn {
+  padding: 5px 10px;
+  background-color: #ddd;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.quantity-input {
+  width: 50px;
+  text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  margin: 0 5px;
+}
+
+.checkout-actions {
+  display: flex;
+  justify-content: space-between;
   margin-top: 20px;
 }
 
+.checkout-btn {
+  border: 5px solid #000000;
+  background-color: #000000;
+  color: #fff;
+  cursor: pointer;
+}
+
+.continue-btn {
+  background-color: #f3f3f3;
+  border: none;
+  cursor: pointer;
+}
+
+.order-summary h4 {
+  margin-bottom: 20px;
+}
+
+.order-summary p {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+.order-summary hr {
+  border: 1px solid #eee;
+  margin: 20px 0;
+}
+
+.installments {
+  color: gray;
+  font-size: 0.9rem;
+}
 </style>

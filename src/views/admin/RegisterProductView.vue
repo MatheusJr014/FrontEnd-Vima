@@ -1,5 +1,5 @@
 <script setup>
-  import Card from '@/components/AdminComponents/CadastrarProdutosComponent.vue';
+  // import Card from '@/components/AdminComponents/CadastrarProdutosComponent.vue';
 
 </script>
 
