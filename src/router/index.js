@@ -24,19 +24,18 @@ const router = createRouter({
     {
       path: '/carrinho',
       name: 'carrinho',
-      
       component: () => import('../views/CarrinhoView.vue')
     },
-    {
-      path: '/login', 
-      name: 'login', 
-      component: ()=> import('../views/LoginView.vue')
-    },
-    {
-      path: '/register', 
-      name: 'register', 
-      component: ()=> import ('../views/RegisterView.vue')
-    },
+    // {
+    //   path: '/login', 
+    //   name: 'login', 
+    //   component: ()=> import('../views/LoginView.vue')
+    // },
+    // {
+    //   path: '/register', 
+    //   name: 'register', 
+    //   component: ()=> import ('../views/RegisterView.vue')
+    // },
     {
       path: '/admin', 
       name: 'admin', 
@@ -61,6 +60,12 @@ const router = createRouter({
       path: '/productSelecionado/:id',
       name: 'productSelecionado',
       component:()=>import('../views/ProductView.vue'),  
+      props: true 
+    },
+    {
+      path: '/usuario',
+      name: 'usuario',
+      component:()=>import('../components/LoginRegisterComponent.vue'),  
       props: true 
     }
   ]
