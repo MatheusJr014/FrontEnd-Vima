@@ -84,7 +84,7 @@ window.addEventListener("DOMContentLoaded", () => {
               <RouterLink class="nav-link" to="/carrinho"><span class="material-symbols-outlined">shopping_cart</span></RouterLink>
             </li>
             <li class="nav-item">
-              <RouterLink class="nav-link" to="/login"><span class="material-symbols-outlined">account_circle</span></RouterLink>
+              <RouterLink class="nav-link" to="/usuario "><span class="material-symbols-outlined">account_circle</span></RouterLink>
             </li>
           </ul>
         </div>
