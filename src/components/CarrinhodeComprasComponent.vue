@@ -42,13 +42,13 @@
           <button class="checkout-btn">Finalizar Pedido</button>
         </div>
       </section>
-
+     
       <aside class="order-summary">
         <h4>Resumo do Pedido</h4>
         <p>Total <span>{{ formatarPreco(total) }}</span></p>
         <p>Desconto <span>{{ desconto }}</span></p>
-        <p>Entrega <button class="btn-calculate">Calcular</button></p>
-        <p>Cupom de desconto <button class="btn-add-coupon">Adicionar</button></p>
+        <p>Entrega <button class="nav-link">Calcular</button></p>
+        <p>Cupom de desconto <button class="nav-link">Adicionar</button></p>
         <hr>
         <p>Total: <span>{{ formatarPreco(total) }}</span></p>
         <p class="installments">Em até 2x de {{ formatarPreco(total / 2) }} sem juros</p>
@@ -165,6 +165,20 @@ export default {
 </script>
 
 <style scoped>
+
+
+.nav-link {
+    position: relative;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.3s;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    border-bottom: 2px solid #050505; 
+}
+
+
 .checkout-container {
   font-family: Arial, sans-serif;
   max-width: 1400px;
@@ -263,6 +277,8 @@ export default {
   color: #fff;
   cursor: pointer;
 }
+
+
 
 .continue-btn {
   background-color: #f3f3f3;
