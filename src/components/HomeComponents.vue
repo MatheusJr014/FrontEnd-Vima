@@ -1,24 +1,39 @@
 <script setup>
-
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 
+const products = ref([]); // Para armazenar os produtos
+const totalItems = ref(0); // Ref para armazenar a quantidade total de itens no carrinho
 
-const products = ref([]);
+// Função para buscar os produtos
 const fetchProducts = async () => {
   try {
     const response = await axios.get('https://localhost:7077/api/Produtos');
     products.value = response.data.$values;
-    console.log(response.data, 'Oii')
+    console.log(response.data, 'Oii');
   } catch (error) {
     console.error('Erro ao buscar os produtos:', error);
   }
 };
 
+// Função para buscar o carrinho e calcular a quantidade total de itens
+const fetchCart = async () => {
+  try {
+    const response = await axios.get('https://localhost:7077/api/Carrinho/get');
+    const carrinho = response.data.$values || []; // Garantir que seja um array
+    // Calcular o total de itens somando as quantidades de cada produto
+    totalItems.value = carrinho.reduce((sum, item) => sum + item.quantidade, 0);
+  } catch (error) {
+    console.error('Erro ao buscar o carrinho:', error);
+  }
+};
 
+// Chama as funções quando o componente for montado
 onMounted(() => {
   fetchProducts();
+  fetchCart(); // Buscar a quantidade do carrinho
 });
+
 // Navbar shrink function
 const navbarShrink = () => {
   const navbarCollapsible = document.body.querySelector("#mainNav");
@@ -57,6 +72,7 @@ window.addEventListener("DOMContentLoaded", () => {
   });
 });
 </script>
+
 <template>
   <div>
     <!-- Navigation-->
@@ -80,16 +96,23 @@ window.addEventListener("DOMContentLoaded", () => {
             <li class="nav-item">
               <RouterLink class="nav-link" to="/contact">Contato</RouterLink>
             </li>
-            <li class="nav-item">
-              <RouterLink class="nav-link" to="/carrinho"><span class="material-symbols-outlined">shopping_cart</span></RouterLink>
+            <li class="nav-item position-relative">
+              <RouterLink class="nav-link" to="/carrinho">
+                <span class="material-symbols-outlined">shopping_cart</span>
+              </RouterLink>
+              <!-- Exibindo o total de itens no carrinho -->
+              <div class="cart-quantity" v-if="totalItems > 0">{{ totalItems }}</div>
             </li>
             <li class="nav-item">
-              <RouterLink class="nav-link" to="/usuario "><span class="material-symbols-outlined">account_circle</span></RouterLink>
+              <RouterLink class="nav-link" to="/usuario">
+                <span class="material-symbols-outlined">account_circle</span>
+              </RouterLink>
             </li>
           </ul>
         </div>
       </div>
     </nav>
+
 
     <!-- Masthead-->
     <header class="masthead">
@@ -284,6 +307,23 @@ window.addEventListener("DOMContentLoaded", () => {
 
 @import '@/assets/homestyles.css';
 
+/* CSS para posicionar o ícone de quantidade sobre o carrinho */
+.nav-item.position-relative .cart-quantity {
+  position: absolute;
+  top: 20px;
+  right: 14px;
+  background-color: rgb(8, 8, 8);
+  color: white;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  font-size: 10px;
+  font-weight: bold;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 </style>
 
