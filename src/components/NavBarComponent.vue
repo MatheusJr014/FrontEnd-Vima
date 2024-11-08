@@ -19,8 +19,12 @@
           <li class="nav-item">
             <RouterLink class="nav-link" to="/contact">Contato</RouterLink>
           </li>
-          <li class="nav-item">
-            <RouterLink class="nav-link" to="/carrinho"><span class="material-symbols-outlined">shopping_cart</span></RouterLink>
+          <li class="nav-item position-relative">
+            <RouterLink class="nav-link" to="/carrinho">
+              <span class="material-symbols-outlined">shopping_cart</span>
+              <!-- Exibindo o total de itens do carrinho -->
+              <div class="cart-quantity" v-if="totalItems > 0">{{ totalItems }}</div>
+            </RouterLink>
           </li>
           <li class="nav-item">
             <RouterLink class="nav-link" to="/usuario"><span class="material-symbols-outlined">account_circle</span></RouterLink>
@@ -32,10 +36,38 @@
 </template>
 
 <script>
+import axios from 'axios';
+
+export default {
+  data() {
+    return {
+      totalItems: 0  // Total de itens no carrinho
+    };
+  },
+  mounted() {
+    this.getCarrinho();
+  },
+  methods: {
+    async getCarrinho() {
+      try {
+        const response = await axios.get('https://localhost:7077/api/Carrinho/get');
+        const carrinho = response.data.$values;
+        
+        this.calculateTotalItems(carrinho);  // Calcula o total de itens
+      } catch (error) {
+        console.error('Erro ao carregar o carrinho:', error);
+      }
+    },
+    calculateTotalItems(carrinho) {
+      this.totalItems = carrinho.reduce((sum, item) => sum + item.quantidade, 0);
+    },
+  }
+};
 </script>
 
 <style scoped>
 @import '@/assets/homestyles.css';
+
 a.navbar-brand {
     color: black !important;
 }
@@ -44,4 +76,20 @@ a.nav-link {
     color: black !important;
 }
 
+.nav-item.position-relative .cart-quantity {
+  position: absolute;
+  top: 20px;
+  right: 14px;
+  background-color: rgb(8, 8, 8);
+  color: white;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  font-size: 10px;
+  font-weight: bold;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 </style>
