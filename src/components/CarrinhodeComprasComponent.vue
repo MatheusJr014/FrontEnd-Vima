@@ -15,8 +15,7 @@
           </thead>
           <tbody>
             <tr v-for="item in carrinho" :key="item.id">
-              <td class="product-details">
-                <img :src="item.imagemURL" class="product-img" alt="image">
+              <td class="product-details">      
                 <div class="product-info">
                   <p>{{ item.product }}</p>
                 </div>
@@ -38,7 +37,7 @@
         </table>
         <div class="checkout-actions">
           <button class="continue-btn">
-            <RouterLink class="nav-link" to="/">Continuar comprando</RouterLink></button>
+            <RouterLink class="nav-link" style="bg-dark" to="/">Continuar comprando</RouterLink></button>
           <button class="checkout-btn">Finalizar Pedido</button>
         </div>
       </section>
@@ -166,6 +165,16 @@ export default {
 
 <style scoped>
 
+.remove {
+    position: relative;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.3s;
+}
+
+.remove:hover,
+.remove.active {
+    border-bottom: 2px solid #050505; 
+}
 
 .nav-link {
     position: relative;

@@ -41,7 +41,7 @@
         
         .then(response => {
           // Se o login for bem-sucedido, você pode redirecionar o usuário para outra página
-          console.log('Login bem-sucedido:', response.data);
+          alert('Login bem-sucedido:', response.data);
 
           window.localStorage.setItem("AUTH_TOKEN", response.data);
           
@@ -58,5 +58,8 @@
   
   <style scoped>
   @import '@/assets/Styles/Admin/LoginRegister.css';
-    
+    container{
+      display: block;
+      justify-content: center;   
+     }
   </style>

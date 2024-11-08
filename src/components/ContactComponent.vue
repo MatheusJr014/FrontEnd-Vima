@@ -40,7 +40,7 @@
               <textarea v-model="userData.description" class="form-control" placeholder="Digite uma mensagem" id="exampleFormControlTextarea1" rows="3"></textarea>
               <div v-if="errors.description" class="text-danger">{{ errors.description }}</div>
             </div>
-            <button type="submit" class="btn btn-outline-success">Enviar</button>
+            <button type="submit" class="btn btn-outline-dark">Enviar</button>
           </form>
         </div>
         <div class="col-md-6">
@@ -186,5 +186,11 @@ li.list-group-item {
 
 .list-group-item {
   background-color: #f5f5f5 !important;
+}
+
+.line-title {
+    border-top: 8px solid #000000;
+    margin-bottom: 20px;
+    margin-top: 0px;
 }
 </style>

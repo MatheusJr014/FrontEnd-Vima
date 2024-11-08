@@ -47,6 +47,7 @@
        .then(response => {
          console.log(response.data);
          this.submitted = true;
+         alert('Cadastro bem-sucedido:', response.data);
          this.$router.push('/');
        })
        .catch(error => {

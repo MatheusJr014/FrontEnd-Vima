@@ -1,4 +1,5 @@
 <template>
+    
     <div class="containerflex wrap">
         <div class="item">
             <NavBarComponent />
