@@ -157,7 +157,7 @@ export default {
                 console.log(response.data);
                 this.inventory -= this.userData.quantidade;
                 this.userData.quantidade = 1;
-                alert('Produto adicionado ao carrinho!');
+                location.reload();
                 this.submitted = true;
             })
             .catch(error => {
