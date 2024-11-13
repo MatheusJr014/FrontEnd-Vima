@@ -45,12 +45,17 @@
 
           window.localStorage.setItem("AUTH_TOKEN", response.data);
           
-          this.$router.push('/'); // Redireciona para a página de dashboard
+          this.$router.push('/').then(() => {
+          this.$nextTick(() => {
+            location.reload();
+          });
+        });
         })
         .catch(error => {
           console.error('Erro de login:', error);
           alert('Credenciais inválidas. Por favor, tente novamente.');
         });
+        
       }
     }
   }

@@ -121,6 +121,15 @@ export default {
         .catch(error => {
           console.error("Erro ao salvar o produto:", error);
         });
+        
+        this.$router.push('/admin').then(() => {
+      
+      this.showSuccessMessage = true;
+
+      setTimeout(() => {
+        location.reload();
+      }, 1500); 
+    });
     },
     closeModal() {
       this.showModal = false;
