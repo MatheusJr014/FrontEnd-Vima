@@ -73,7 +73,7 @@ export default {
   methods: {
     async getCarrinho() {
       try {
-        const response = await axios.get('https://localhost:7077/api/Carrinho/get');
+        const response = await axios.get('https://localhost:7077/api/Carrinho');
         this.carrinho = response.data.$values;
         this.calculateTotal(); 
       } catch (error) {
