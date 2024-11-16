@@ -48,11 +48,17 @@
          console.log(response.data);
          this.submitted = true;
          alert('Cadastro bem-sucedido:', response.data);
-         this.$router.push('/');
+         this.$router.push('/').then(() => {
+          this.$nextTick(() => {
+            location.reload();
+          });
+        });
+         
        })
        .catch(error => {
          console.log(error);
        });
+       
      }
    }
   }
