@@ -80,9 +80,9 @@ export default {
         console.error("ID do produto não definido");
         return;
       }
-
+     
       try {
-        const response = await axios.put(`https://localhost:7077/api/Produtos/update/${this.product.id}`, updatedData, {
+        const response = await axios.put(`https://localhost:7077/api/admin/product/${this.product.id}`, updatedData, {
           headers: { 'Content-Type': 'application/json' }
         });
         console.log('Produto atualizado:', response.data);
