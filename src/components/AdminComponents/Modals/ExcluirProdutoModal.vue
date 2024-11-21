@@ -50,7 +50,7 @@
         this.$emit('close');
       },
       confirmarExclusao() {
-        axios.delete(`https://localhost:7077/api/Produtos/delete/${this.produtoId}`)
+        axios.delete(`https://localhost:7077/api/admin/product/${this.produtoId}`)
           .then(response => {
             console.log("Produto excluído com sucesso:", response.data);
             this.fecharModal();

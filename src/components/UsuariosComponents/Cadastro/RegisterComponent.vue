@@ -2,7 +2,7 @@
   <div class="container">
     <div class="forms">
       <div class="cadastro">
-        <div style="text-align: left;"> <h1>Criar Conta</h1></div>
+        <div style="text-align: left;"><h1>Criar Conta</h1></div>
         <form id="signupForm">
           <label for="nome">Nome</label>
           <input type="text" v-model="userData.nome" id="nome" placeholder="Digite aqui" required>
@@ -19,54 +19,50 @@
       </div>
     </div>
   </div>
-  </template>
-  
-  <script>
-  import RegisterDataService from '../../../services/RegisterEloginService/RegisterDataService.js'
-  
-  export default {
-   name: 'newSignin',
-   data() {
-     return {
-       userData: {
-         nome: '',
-         sobrenome: '',
-         email: '',
-         senha: ''
-       },
-       confirmPassword: ''
-     };
-   }, 
-   methods: {
-     saveCadastro() {
-       if (this.userData.senha !== this.confirmPassword) {
-         alert("As senhas não coincidem.");
-         return;
-       }
-       RegisterDataService.create(this.userData)
-       .then(response => {
-         console.log(response.data);
-         this.submitted = true;
-         alert('Cadastro bem-sucedido:', response.data);
-         this.$router.push('/').then(() => {
-          this.$nextTick(() => {
-            location.reload();
+</template>
+
+<script>
+import RegisterDataService from '../../../services/RegisterEloginService/RegisterDataService.js';
+
+export default {
+  name: 'newSignin',
+  data() {
+    return {
+      userData: {
+        nome: '',
+        sobrenome: '',
+        email: '',
+        senha: '',
+        role: 'User' // Predefinindo a role como "User"
+      },
+      confirmPassword: ''
+    };
+  },
+  methods: {
+    saveCadastro() {
+      if (this.userData.senha !== this.confirmPassword) {
+        alert("As senhas não coincidem.");
+        return;
+      }
+      RegisterDataService.create(this.userData)
+        .then(response => {
+          console.log(response.data);
+          alert('Cadastro bem-sucedido:', response.data);
+          this.$router.push('/').then(() => {
+            this.$nextTick(() => {
+              location.reload();
+            });
           });
+        })
+        .catch(error => {
+          console.error(error);
+          alert('Erro no cadastro. Tente novamente.');
         });
-         
-       })
-       .catch(error => {
-         console.log(error);
-       });
-       
-     }
-   }
+    }
   }
-  </script>
-  
-  <style scoped>
-  @import '@/assets/Styles/Admin/LoginRegister.css';
-  
-    
-  </style>
-  
+};
+</script>
+
+<style scoped>
+@import '@/assets/Styles/Admin/LoginRegister.css';
+</style>
