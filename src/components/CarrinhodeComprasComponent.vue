@@ -15,7 +15,7 @@
           </thead>
           <tbody>
             <tr v-for="item in carrinho" :key="item.id">
-              <td class="product-details">      
+              <td class="product-details">
                 <div class="product-info">
                   <p>{{ item.product }}</p>
                 </div>
@@ -24,7 +24,8 @@
               <td>
                 <div class="quantity-btns">
                   <button @click="aumentaQuantidade(item.id)" class="quantity-btn">+</button>
-                  <input v-model="item.quantidade" @input="atualizaQuantidade(item)" class="quantity-input" type="number" min="1" readonly>
+                  <input v-model="item.quantidade" @input="atualizaQuantidade(item)" class="quantity-input"
+                    type="number" min="1" readonly>
                   <button @click="diminuiQuantidade(item.id)" class="quantity-btn">-</button>
                 </div>
               </td>
@@ -37,11 +38,12 @@
         </table>
         <div class="checkout-actions">
           <button class="continue-btn">
-            <RouterLink class="nav-link" style="bg-dark" to="/">Continuar comprando</RouterLink></button>
+            <RouterLink class="nav-link" style="bg-dark" to="/">Continuar comprando</RouterLink>
+          </button>
           <button class="checkout-btn">Finalizar Pedido</button>
         </div>
       </section>
-     
+
       <aside class="order-summary">
         <h4>Resumo do Pedido</h4>
         <p>Total <span>{{ formatarPreco(total) }}</span></p>
@@ -74,8 +76,8 @@ export default {
     async getCarrinho() {
       try {
         const response = await axios.get('https://localhost:7077/api/Carrinho');
-        this.carrinho = response.data.$values;
-        this.calculateTotal(); 
+        this.carrinho = response.data;
+        this.calculateTotal(); // Calcular total assim que o carrinho for carregado
       } catch (error) {
         console.error('Erro ao carregar o carrinho:', error);
       }
@@ -90,7 +92,7 @@ export default {
       axios.delete(`https://localhost:7077/api/Carrinho/delete/${idProduct}`)
         .then(response => {
           console.log("Produto removido com sucesso:", response.data);
-          this.getCarrinho();
+          this.getCarrinho(); // Atualizar carrinho após remover o produto
         })
         .catch(error => {
           console.error("Erro ao remover produto:", error);
@@ -123,7 +125,7 @@ export default {
       })
         .then(response => {
           console.log("Produto atualizado com sucesso:", response.data);
-          this.calculateTotal();
+          this.calculateTotal(); // Recalcular total após atualização
         })
         .catch(error => {
           console.error("Erro ao atualizar produto:", error);
@@ -131,60 +133,61 @@ export default {
     },
     calculateTotal() {
       let total = 0;
-      let desconto = '0%';
-      let totalItems = 0; 
+      let desconto = 0; // Aqui será uma porcentagem, não uma string
+      let totalItems = 0;
 
+      // Calcula o total inicial sem descontos
       this.carrinho.forEach(item => {
         const precoTotal = item.preco * item.quantidade;
         total += precoTotal;
-        totalItems += item.quantidade; 
+        totalItems += item.quantidade;
       });
 
       // Aplicando descontos progressivos
-      if (totalItems >= 2 && totalItems < 3) {
-        desconto = '5%';
-        total = total - (total * 0.05);
-      } else if (totalItems >= 3 && totalItems < 4) {
-        desconto = '10%';
-        total = total - (total * 0.10);git 
-      } else if (totalItems >= 4 && totalItems < 5) {
-        desconto = '15%';
-        total = total - (total * 0.15);
-      } else if (totalItems >= 5) {
-        desconto = '20%';
-        total = total - (total * 0.20);
+      if (totalItems >= 5) {
+        desconto = 0.20; // 20% de desconto
+      } else if (totalItems >= 4) {
+        desconto = 0.15; // 15% de desconto
+      } else if (totalItems >= 3) {
+        desconto = 0.10; // 10% de desconto
+      } else if (totalItems >= 2) {
+        desconto = 0.05; // 5% de desconto
       }
 
+      // Aplica o desconto no total
+      total -= total * desconto;
+
+      // Armazena o valor final do total e do desconto
       this.total = total;
-      this.desconto = desconto;
+      this.desconto = (desconto * 100) + "%"; // Converte de volta para string
     },
+
   }
 };
 
 </script>
 
 <style scoped>
-
 .remove {
-    position: relative;
-    border-bottom: 2px solid transparent;
-    transition: border-color 0.3s;
+  position: relative;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.3s;
 }
 
 .remove:hover,
 .remove.active {
-    border-bottom: 2px solid #050505; 
+  border-bottom: 2px solid #050505;
 }
 
 .nav-link {
-    position: relative;
-    border-bottom: 2px solid transparent;
-    transition: border-color 0.3s;
+  position: relative;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.3s;
 }
 
 .nav-link:hover,
 .nav-link.active {
-    border-bottom: 2px solid #050505; 
+  border-bottom: 2px solid #050505;
 }
 
 
