@@ -9,7 +9,7 @@ const totalItems = ref(0); // Ref para armazenar a quantidade total de itens no 
 const fetchProducts = async () => {
   try {
     const response = await axios.get('https://localhost:7077/api/Produtos');
-    products.value = response.data.$values;
+    products.value = response.data;
     console.log(response.data, 'Oii');
   } catch (error) {
     console.error('Erro ao buscar os produtos:', error);
@@ -19,8 +19,8 @@ const fetchProducts = async () => {
 // Função para buscar o carrinho e calcular a quantidade total de itens
 const fetchCart = async () => {
   try {
-    const response = await axios.get('https://localhost:7077/api/Carrinho/get');
-    const carrinho = response.data.$values || []; // Garantir que seja um array
+    const response = await axios.get('https://localhost:7077/api/Carrinho');
+    const carrinho = response.data || []; // Garantir que seja um array
     // Calcular o total de itens somando as quantidades de cada produto
     totalItems.value = carrinho.reduce((sum, item) => sum + item.quantidade, 0);
   } catch (error) {

@@ -51,7 +51,7 @@ export default {
     async getCarrinho() {
       try {
         const response = await axios.get('https://localhost:7077/api/Carrinho');
-        const carrinho = response.data.$values;
+        const carrinho = response.data;
         
         this.calculateTotalItems(carrinho);  // Calcula o total de itens
       } catch (error) {
