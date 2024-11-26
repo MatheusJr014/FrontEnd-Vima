@@ -46,6 +46,12 @@ const router = createRouter({
       component: () => import('../components/AdminComponents/LoginAdminComponent.vue'),
       props: true,
     },
+    {
+      path: '/perfil',
+      name: 'perfil',
+      component: () => import('../views/PerfilView.vue'),
+      // meta: { requiresAuth: true, isAdmin: true },
+    }
   ],
 });
 
