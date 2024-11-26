@@ -16,40 +16,41 @@
         <div class="modal-body">
           <form @submit.prevent="updateProduct">
             <div class="mb-3">
-              <label>ID do Produto</label>
-              <input v-model="editableProduct.id" type="text" class="form-control" readonly />
+              <label for="idProduto">ID do Produto</label>
+              <input v-model="editableProduct.id" id="idProduto" type="text" class="form-control" readonly />
             </div>
             <div class="mb-3">
-              <label>Nome</label>
-              <input v-model="editableProduct.nome" type="text" class="form-control" required />
+              <label for="nome">Nome</label>
+              <input v-model="editableProduct.nome" id="nome" type="text" class="form-control" required />
             </div>
             <div class="mb-3">
-              <label>Descrição</label>
-              <input v-model="editableProduct.descricao" type="text" class="form-control" required />
+              <label for="descricao">Descrição</label>
+              <input v-model="editableProduct.descricao" id="descricao" type="text" class="form-control" required />
             </div>
             <div class="mb-3">
-              <label>Preço</label>
-              <input v-model="editableProduct.preco" type="number" step="0.01" class="form-control" required />
+              <label for="preco">Preço</label>
+              <input v-model="editableProduct.preco" id="preco" type="number" step="0.01" class="form-control" required />
             </div>
             <div class="mb-3">
-              <label>Estoque</label>
-              <input v-model="editableProduct.estoque" type="number" class="form-control" required />
+              <label for="estoque">Estoque</label>
+              <input v-model="editableProduct.estoque" id="estoque" type="number" class="form-control" required />
             </div>
             <div class="mb-3">
-              <label>Tamanhos (separados por vírgula)</label>
-              <input v-model="editableProduct.tamanhosInput" type="text" class="form-control" />
+              <label for="tamanhos">Tamanhos (separados por vírgula)</label>
+              <input v-model="editableProduct.tamanhosInput" id="tamanhos" type="text" class="form-control" />
             </div>
             <div class="mb-3">
-              <label>Imagem URL</label>
-              <input v-model="editableProduct.imageURL" type="text" class="form-control" />
+              <label for="imagem">Imagem URL</label>
+              <input v-model="editableProduct.imageURL" id="imagem" type="text" class="form-control" />
             </div>
-            <button type="submit" class="btn btn-primary">Salvar</button>
+            <button type="submit" id="envia" class="btn btn-primary">Salvar</button>
           </form>
         </div>
       </div>
     </div>
   </div>
 </template>
+
 
 <script>
 import api from "@/http-common";

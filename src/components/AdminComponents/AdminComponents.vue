@@ -35,9 +35,9 @@
               <td>{{ product.tamanhos.join(', ') }}</td>
               <td>
                 <!-- Botão Editar -->
-                
-                <button class="btn btn-outline-primary btn-sm me-2" :id="'Edita-produto'+index" @click="openEditModal(product)"
-                  title="Editar Produto">
+
+                <button class="btn btn-outline-primary btn-sm me-2" :id="'Edita-produto' + index"
+                  @click="openEditModal(product)" title="Editar Produto">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-pencil" viewBox="0 0 16 16">
                     <path
@@ -54,7 +54,7 @@
                   </svg>
                 </button>
               </td>
-              
+
             </tr>
           </tbody>
         </table>
@@ -64,8 +64,8 @@
       <ExcluirProdutoModal v-if="modalExcluirAberto" :produtoId="produtoId" :produtoNome="produtoNome"
         @close="modalExcluirAberto = false" @produtoExcluido="atualizarListaDeProdutos" />
 
-      <!-- Modal de Edição -->
-      <EditarProdutoModal v-if="showEditModal" :product="selectedProduct" @close="showEditModal = false" />
+      <EditarProdutoModal v-if="showEditModal" :product="selectedProduct" @close="showEditModal = false"
+        @update="fetchProducts" />
     </div>
   </div>
 </template>
