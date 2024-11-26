@@ -35,7 +35,8 @@
               <td>{{ product.tamanhos.join(', ') }}</td>
               <td>
                 <!-- Botão Editar -->
-                <button class="btn btn-outline-primary btn-sm me-2" @click="openEditModal(product)"
+                
+                <button class="btn btn-outline-primary btn-sm me-2" :id="'Edita-produto'+index" @click="openEditModal(product)"
                   title="Editar Produto">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-pencil" viewBox="0 0 16 16">
@@ -53,6 +54,7 @@
                   </svg>
                 </button>
               </td>
+              
             </tr>
           </tbody>
         </table>
@@ -76,6 +78,11 @@ import EditarProdutoModal from './Modals/EditarProdutoModal.vue';
 import axios from 'axios';
 import { ref, onMounted } from 'vue';
 
+var index = 1;
+
+function AumentaIndex() {
+  index = index + 1
+}
 const products = ref([]);
 const showEditModal = ref(false);
 const modalExcluirAberto = ref(false);

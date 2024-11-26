@@ -31,7 +31,7 @@
                         <label class="form-check-label" for="rememberMe">Remember me</label>
                     </div>
                     <div class="d-grid gap-2">
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" id="button" class="btn btn-primary">
                             <i class="bi bi-lock-fill me-2"></i> Logar
                         </button>
                     </div>

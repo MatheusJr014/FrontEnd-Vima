@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Botão para abrir o modal de cadastro -->
-    <button type="button" class="btn btn-primary" @click="showModal = true">
+    <button type="button" id="Cadastro-produto" class="btn btn-primary" @click="showModal = true">
       Cadastrar Produto
     </button>
 
@@ -52,7 +52,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" @click="closeModal">Fechar</button>
-            <button type="button" class="btn btn-primary" @click="saveProduct">Cadastrar Produto</button>
+            <button type="button" id="Envia" class="btn btn-primary" @click="saveProduct">Cadastrar Produto</button>
           </div>
         </div>
       </div>
