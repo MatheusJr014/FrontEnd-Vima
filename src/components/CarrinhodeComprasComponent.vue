@@ -46,7 +46,6 @@
 
       <aside class="order-summary" v-for="item in carrinho" :key="item.id">
         <h4>Resumo do Pedido</h4>
-        <p>a</p>
         <p>Preço total sem Desconto:<span>{{ formatarPreco(item.preco * item.quantidade) }}</span></p>
         <!-- <p>Total Produtos: <span>{{ formatarPreco(total) }}</span></p> -->
         <p>Desconto: <span>{{ desconto }}</span></p>
@@ -323,5 +322,9 @@ export default {
 .installments {
   color: gray;
   font-size: 0.9rem;
+}
+
+.checkout-container{
+  margin-top: 8%;
 }
 </style>
