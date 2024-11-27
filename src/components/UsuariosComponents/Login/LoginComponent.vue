@@ -23,20 +23,6 @@
             placeholder="Digite aqui"
             required
           />
-
-          <div class="form-check">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              id="rememberMe"
-              v-model="rememberMe"
-            />
-            <label class="form-check-label" for="rememberMe">
-              Lembrar de mim
-            </label>
-          </div>
-
-          <a href="#">Esqueci minha senha</a>
           <button type="submit">ENTRAR</button>
         </form>
       </div>
