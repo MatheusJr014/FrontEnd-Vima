@@ -37,7 +37,7 @@ const router = createRouter({
       name: 'usuario',
       component: () =>
         import('../components/UsuariosComponents/Login-Cadastro/LoginRegisterComponent.vue'),
-      meta: { requiresGuest: true },
+      meta: { requiresGuest: true }, // Requer que o usuário NÃO esteja autenticado
       props: true,
     },
     {
@@ -50,7 +50,6 @@ const router = createRouter({
       path: '/perfil',
       name: 'perfil',
       component: () => import('../views/PerfilView.vue'),
-      // meta: { requiresAuth: true, isAdmin: true },
     }
   ],
 });
@@ -91,8 +90,15 @@ router.beforeEach((to, from, next) => {
     }
   }
 
+  // Bloquear acesso à rota `/usuario` para usuários já logados
+  if (to.name === 'usuario' && token) {
+    console.warn('Usuário já autenticado. Redirecionando para perfil.');
+    return next({ name: 'perfil' }); // Redireciona para o perfil ou para outra página desejada
+  }
+
+  // Bloquear acesso à rota de login/registro para usuários logados
   if (to.meta.requiresGuest && token) {
-    return next({ name: 'home' }); // Redireciona usuários logados para a home
+    return next({ name: 'home' }); // Redireciona usuários logados para a home ou outra página
   }
 
   next(); // Prosseguir para a rota solicitada
