@@ -125,7 +125,9 @@ export default {
   },
     updateProduct(produto) {
       axios.put(`https://localhost:7077/api/Carrinho/update/${produto.id}`, {
+        id: produto.id, 
         quantidade: produto.quantidade,
+        preco: produto.preco, 
         product: produto.product,
         imageURL: produto.imageURL,
         tamanhos: produto.tamanhos
