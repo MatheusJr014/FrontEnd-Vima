@@ -44,14 +44,16 @@
         </div>
       </section>
 
-      <aside class="order-summary">
+      <aside class="order-summary" v-for="item in carrinho" :key="item.id">
         <h4>Resumo do Pedido</h4>
-        <p>Total <span>{{ formatarPreco(total) }}</span></p>
-        <p>Desconto <span>{{ desconto }}</span></p>
-        <p>Entrega <button class="nav-link">Calcular</button></p>
-        <p>Cupom de desconto <button class="nav-link">Adicionar</button></p>
+        <p>a</p>
+        <p>Preço total sem Desconto:<span>{{ formatarPreco(item.preco * item.quantidade) }}</span></p>
+        <!-- <p>Total Produtos: <span>{{ formatarPreco(total) }}</span></p> -->
+        <p>Desconto: <span>{{ desconto }}</span></p>
+        <p>Entrega: <button class="nav-link">Calcular</button></p>
+        <p>Cupom de desconto: <button class="nav-link">Adicionar</button></p>
         <hr>
-        <p>Total: <span>{{ formatarPreco(total) }}</span></p>
+        <p>Total com Desconto: <span>{{ formatarPreco(total) }}</span></p>
         <p class="installments">Em até 2x de {{ formatarPreco(total / 2) }} sem juros</p>
       </aside>
     </main>
@@ -77,10 +79,13 @@ export default {
       try {
         const response = await axios.get('https://localhost:7077/api/Carrinho');
         this.carrinho = response.data;
-        this.calculateTotal(); // Calcular total assim que o carrinho for carregado
+        this.calculateTotal(); 
       } catch (error) {
         console.error('Erro ao carregar o carrinho:', error);
       }
+    },
+    precoTotal($valorBruto){
+      $valorBruto = item.preco * item.quantidade
     },
     formatarPreco(preco) {
       return preco.toLocaleString('pt-BR', {
@@ -92,30 +97,33 @@ export default {
       axios.delete(`https://localhost:7077/api/Carrinho/delete/${idProduct}`)
         .then(response => {
           console.log("Produto removido com sucesso:", response.data);
-          this.getCarrinho(); // Atualizar carrinho após remover o produto
+          this.getCarrinho();
         })
         .catch(error => {
           console.error("Erro ao remover produto:", error);
         });
     },
     aumentaQuantidade(idProduct) {
-      const produto = this.carrinho.find(produto => produto.id === idProduct);
-      produto.quantidade++;
+  const produto = this.carrinho.find(produto => produto.id === idProduct);
+  produto.quantidade++;
+  this.updateProduct(produto); 
+  this.calculateTotal(); 
+  },
+  diminuiQuantidade(idProduct) {
+    const produto = this.carrinho.find(produto => produto.id === idProduct);
+    if (produto.quantidade > 1) {
+      produto.quantidade--;
       this.updateProduct(produto);
-    },
-    diminuiQuantidade(idProduct) {
-      const produto = this.carrinho.find(produto => produto.id === idProduct);
-      if (produto.quantidade > 1) {
-        produto.quantidade--;
-        this.updateProduct(produto);
-      }
-    },
-    atualizaQuantidade(produto) {
-      if (produto.quantidade < 1) {
-        produto.quantidade = 1;
-      }
-      this.updateProduct(produto);
-    },
+      this.calculateTotal(); 
+    }
+  },
+  atualizaQuantidade(produto) {
+    if (produto.quantidade < 1) {
+      produto.quantidade = 1; 
+    }
+    this.updateProduct(produto); 
+    this.calculateTotal(); 
+  },
     updateProduct(produto) {
       axios.put(`https://localhost:7077/api/Carrinho/update/${produto.id}`, {
         quantidade: produto.quantidade,
@@ -125,46 +133,46 @@ export default {
       })
         .then(response => {
           console.log("Produto atualizado com sucesso:", response.data);
-          this.calculateTotal(); // Recalcular total após atualização
+          this.calculateTotal();
         })
         .catch(error => {
           console.error("Erro ao atualizar produto:", error);
         });
     },
     calculateTotal() {
-      let total = 0;
-      let desconto = 0; // Aqui será uma porcentagem, não uma string
-      let totalItems = 0;
+  let total = 0;
+  let desconto = 0; 
+  let totalItems = 0;
 
-      // Calcula o total inicial sem descontos
-      this.carrinho.forEach(item => {
-        const precoTotal = item.preco * item.quantidade;
-        total += precoTotal;
-        totalItems += item.quantidade;
-      });
+  this.carrinho.forEach(item => {
+    const precoTotal = item.preco * item.quantidade;
+    total += precoTotal;
+    totalItems += item.quantidade;
+  });
 
-      // Aplicando descontos progressivos
-      if (totalItems >= 5) {
-        desconto = 0.20; // 20% de desconto
-      } else if (totalItems >= 4) {
-        desconto = 0.15; // 15% de desconto
-      } else if (totalItems >= 3) {
-        desconto = 0.10; // 10% de desconto
-      } else if (totalItems >= 2) {
-        desconto = 0.05; // 5% de desconto
-      }
+  if (totalItems >= 5) {
+    desconto = 0.20;
+  } else if (totalItems >= 4) {
+    desconto = 0.15; 
+  } else if (totalItems >= 3) {
+    desconto = 0.10; 
+  } else if (totalItems >= 2) {
+    desconto = 0.05; 
+  }
 
-      // Aplica o desconto no total
-      total -= total * desconto;
+  console.log("Total inicial:", total);
+  console.log("Itens no carrinho:", totalItems);
+  console.log("Desconto aplicado (%):", desconto * 100);
 
-      // Armazena o valor final do total e do desconto
-      this.total = total;
-      this.desconto = (desconto * 100) + "%"; // Converte de volta para string
-    },
+  total -= total * desconto;
+
+  this.total = total;
+  this.desconto = (desconto * 100) + "%"; 
+}
+
 
   }
 };
-
 </script>
 
 <style scoped>
@@ -189,7 +197,6 @@ export default {
 .nav-link.active {
   border-bottom: 2px solid #050505;
 }
-
 
 .checkout-container {
   font-family: Arial, sans-serif;
