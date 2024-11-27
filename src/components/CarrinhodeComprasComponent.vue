@@ -44,9 +44,9 @@
         </div>
       </section>
 
-      <aside class="order-summary" v-for="item in carrinho" :key="item.id">
+      <aside class="order-summary">
         <h4>Resumo do Pedido</h4>
-        <p>Preço total sem Desconto:<span>{{ formatarPreco(item.preco * item.quantidade) }}</span></p>
+        <p v-for="item in item" :key="item.id">Preço total sem Desconto:<span>{{ formatarPreco(item.preco * item.quantidade) }}</span></p>
         <!-- <p>Total Produtos: <span>{{ formatarPreco(total) }}</span></p> -->
         <p>Desconto: <span>{{ desconto }}</span></p>
         <p>Entrega: <button class="nav-link">Calcular</button></p>
